@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080808"><meta name="description" content="A birthday celebration."><title>A birthday celebration</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css?v=20260919-black"><link rel="stylesheet" href="cinema.css?v=20260919-black"><link rel="stylesheet" href="story.css?v=20260919-black"><link rel="stylesheet" href="submissions.css?v=20260919-submit"><script src="event-config.js?v=20260919-copy3" defer></script><script src="cinema.js?v=20260919-copy3" defer></script><script src="vendor/supabase.js" defer></script><script src="submissions.js?v=20260919-submit" defer></script><script src="script.js?v=20260919-input" defer></script><script src="music.js" defer></script><script src="story.js" defer></script></head><body>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080808"><meta name="description" content="A birthday celebration."><title>A birthday celebration</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css?v=20260919-black"><link rel="stylesheet" href="cinema.css?v=20260919-black"><link rel="stylesheet" href="story.css?v=20260919-black"><link rel="stylesheet" href="submissions.css?v=20260919-receipt"><script src="event-config.js?v=20260919-copy3" defer></script><script src="cinema.js?v=20260919-copy3" defer></script><script src="vendor/supabase.js" defer></script><script src="submissions.js?v=20260919-submit" defer></script><script src="script.js?v=20260919-receipt" defer></script><script src="music.js" defer></script><script src="story.js" defer></script></head><body>
 <noscript><p style="padding:24px;color:#f3ead7">Please enable JavaScript to open this invitation. / Slå på JavaScript for å åpne invitasjonen.</p></noscript>
 <article id="gatsby-invitation" lang="en" data-direction="gala" data-ornament="deco" aria-label="Birthday invitation">
   <button class="party-music-toggle cursor-interaction" type="button" data-music-toggle aria-pressed="false" aria-label="Turn sound on" hidden><span aria-hidden="true">♫</span><span data-music-label>Sound off</span></button>
@@ -44,9 +44,11 @@
     <section class="story-chapter" id="party-evidence" aria-labelledby="party-contribute-title" hidden>
       <div class="story-card party-contribute">
         <p class="story-kicker"><span class="story-number">03</span><span data-story-copy="evidenceKicker"></span></p>
+        <div data-evidence-intro>
         <h2 class="story-title" id="party-contribute-title" data-i18n="contributeTitle"></h2>
         <p class="story-intro" data-i18n="contributeIntro"></p>
         <p class="story-contributor"><span data-story-copy="from"></span> <strong data-contributor-name></strong></p>
+        </div>
         <form id="party-contribution-form">
 
         <input id="party-contributor" name="contributor" type="hidden">
@@ -59,9 +61,20 @@
         <p class="party-field-error" id="party-photo-error" role="alert"></p>
         <div class="party-photo-previews" data-photo-previews></div>
         <button class="party-small-button cursor-interaction" type="submit" data-i18n="contributeButton"></button>
+        <button class="party-small-button receipt-cancel" type="button" data-cancel-contribution hidden></button>
         <p class="party-field-hint" data-i18n="contributeNote"></p>
         <p class="party-contribution-status" data-contribution-status role="status" aria-live="polite"></p>
       </form>
+        <section class="party-receipt" id="contribution-receipt" aria-labelledby="receipt-title" tabindex="-1" hidden>
+          <div class="receipt-seal" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="m13 24 7 7 15-16"/></svg></div>
+          <p class="receipt-eyebrow" data-receipt-eyebrow></p>
+          <h2 id="receipt-title" data-receipt-title></h2>
+          <p class="receipt-summary" data-receipt-summary></p>
+          <p class="receipt-privacy" data-receipt-privacy></p>
+          <dl class="receipt-details"><div><dt data-receipt-reply-label></dt><dd data-receipt-reply></dd></div><div><dt data-receipt-story-label></dt><dd data-receipt-story></dd></div><div><dt data-receipt-photos-label></dt><dd data-receipt-photos></dd></div></dl>
+          <div class="receipt-photos" data-receipt-thumbnails></div>
+          <button class="party-small-button" type="button" data-edit-contribution></button>
+        </section>
         <a class="story-next" href="#party-memories"><span data-story-copy="toAlbum"></span><span aria-hidden="true">↓</span></a>
       </div>
     </section>

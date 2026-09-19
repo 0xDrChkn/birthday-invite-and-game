@@ -15,6 +15,10 @@
   const photoPreview = root.querySelector('[data-photo-previews]');
   const submissionState = { restoring: isConfigured(), rsvpBusy: false, contributionBusy: false, rsvpStatus: null, contributionStatus: null, progress: null, pendingUpload: false };
   let previewUrls = [];
+  let editingContribution = false;
+  let canDiscardContributionEdits = true;
+  let receiptVersion = null;
+  const receipt = root.querySelector('#contribution-receipt');
   const submissionCopy = {
     en: {
       unavailable: 'RSVP and photo submissions aren’t open yet. Please check back soon.',
@@ -28,7 +32,13 @@
       contributionSaved: count => `Your story${count ? ` and ${count === 1 ? 'photo' : `${count} photos`}` : ''} ${count ? 'are' : 'is'} saved. Thank you!`,
       rsvpNote: 'Choose your reply below. You can update it here later on this device.',
       contributionNote: 'Optional: share a story, with or without photos. It goes privately to the host for the birthday collage and game.',
-      submit: 'Send contribution', update: 'Update contribution',
+      submit: 'Send contribution', update: 'Save changes',
+      received: 'CONTRIBUTION RECEIVED', receiptTitle: 'You’re all set.',
+      receiptSummary: (name, count) => `${name}, your story${count ? ` and ${count} photo${count === 1 ? '' : 's'}` : ''} ${count ? 'are' : 'is'} safely saved.`,
+      receiptPrivacy: 'The host can now see your contribution. Your story and photos are kept in the private guest book.',
+      replyLabel: 'Your RSVP', coming: 'I’m coming', notComing: 'Can’t make it', storyLabel: 'Your story', saved: 'Received',
+      photoLabel: 'Your photos', photoCount: count => count ? `${count} received` : 'None added',
+      editContribution: 'Edit story or photos', cancelEdit: 'Cancel changes',
       optional: ' (optional)',
       photosHint: 'Up to 3 photos · 20 MB each · JPG, PNG, WebP or HEIC. Choose photos you’re happy to show at the party.',
       replacing: 'Choosing new photos replaces your saved photos. Leave this empty to keep them.',
@@ -57,7 +67,13 @@
       contributionSaved: count => `Historien din${count ? ` og ${count === 1 ? 'bildet ditt' : `${count} bilder`}` : ''} er lagret. Tusen takk!`,
       rsvpNote: 'Velg svaret ditt nedenfor. Du kan endre det her senere på denne enheten.',
       contributionNote: 'Valgfritt: del en historie, med eller uten bilder. Den sendes privat til verten for bursdagscollagen og spillet.',
-      submit: 'Send bidrag', update: 'Oppdater bidrag',
+      submit: 'Send bidrag', update: 'Lagre endringer',
+      received: 'BIDRAGET ER MOTTATT', receiptTitle: 'Alt er i boks.',
+      receiptSummary: (name, count) => `${name}, historien din${count ? ` og ${count} bilde${count === 1 ? '' : 'r'}` : ''} er trygt lagret.`,
+      receiptPrivacy: 'Verten kan nå se bidraget ditt. Historien og bildene ligger i den private gjesteboken.',
+      replyLabel: 'Ditt svar', coming: 'Jeg kommer', notComing: 'Kan ikke komme', storyLabel: 'Din historie', saved: 'Mottatt',
+      photoLabel: 'Dine bilder', photoCount: count => count ? `${count} mottatt` : 'Ingen lagt til',
+      editContribution: 'Endre historie eller bilder', cancelEdit: 'Avbryt endringer',
       optional: ' (valgfritt)',
       photosHint: 'Opptil 3 bilder · 20 MB per bilde · JPG, PNG, WebP eller HEIC. Velg bilder du gjerne vil vise på festen.',
       replacing: 'Nye bilder erstatter bildene du har sendt inn. La feltet stå tomt for å beholde dem.',
@@ -163,6 +179,53 @@
     if (/invalid|validation|file|size/.test(code)) return copy.invalid;
     return copy.error;
   }
+  function renderReceipt() {
+    const copy = submissionCopy[state.language];
+    const complete = !!lastContribution && !submissionState.pendingUpload && submissionState.contributionStatus?.kind === 'success';
+    const visible = complete && !editingContribution && !submissionState.contributionBusy;
+    receipt.hidden = !visible;
+    contributionForm.hidden = visible;
+    root.querySelector('[data-evidence-intro]').hidden = visible;
+    root.querySelector('#party-evidence').setAttribute('aria-labelledby', visible ? 'receipt-title' : 'party-contribute-title');
+    const cancel = root.querySelector('[data-cancel-contribution]');
+    cancel.hidden = !lastContribution || !editingContribution || submissionState.pendingUpload || !canDiscardContributionEdits;
+    cancel.textContent = copy.cancelEdit;
+    if (!visible) return;
+    const images = lastContribution.photos || [];
+    const contents = {
+      'eyebrow':copy.received, 'title':copy.receiptTitle,
+      'summary':copy.receiptSummary(lastReply.name,images.length), 'privacy':copy.receiptPrivacy,
+      'reply-label':copy.replyLabel, 'reply':lastReply.accepted ? copy.coming : copy.notComing,
+      'story-label':copy.storyLabel, 'story':copy.saved, 'photos-label':copy.photoLabel, 'photos':copy.photoCount(images.length)
+    };
+    Object.entries(contents).forEach(([key,value]) => { receipt.querySelector(`[data-receipt-${key}]`).textContent = value; });
+    receipt.querySelector('[data-edit-contribution]').textContent = copy.editContribution;
+    const version = JSON.stringify(images.map(photo => [photo.name,photo.url]));
+    if (version !== receiptVersion) {
+      receiptVersion = version;
+      const gallery = receipt.querySelector('[data-receipt-thumbnails]');
+      gallery.replaceChildren();
+      images.forEach(photo => {
+        const figure = document.createElement('figure');
+        const caption = document.createElement('figcaption');
+        caption.textContent = photo.name;
+        if (photo.url) {
+          const image = document.createElement('img');
+          image.src = photo.url; image.alt = photo.name;
+          image.addEventListener('error',() => { image.hidden = true; });
+          figure.append(image);
+        }
+        figure.append(caption); gallery.append(figure);
+      });
+    }
+  }
+  function focusReceipt() {
+    requestAnimationFrame(() => {
+      if (receipt.hidden) return;
+      receipt.focus({preventScroll:true});
+      receipt.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'center'});
+    });
+  }
   function renderFeedback() {
     const copy = submissionCopy[state.language];
     const busy = submissionState.restoring || submissionState.rsvpBusy || submissionState.contributionBusy;
@@ -195,6 +258,7 @@
       : storyStatus?.kind === 'error' ? errorMessage(storyStatus.error)
       : submissionState.pendingUpload ? copy.uploadIncomplete
       : storyStatus?.kind === 'success' && lastContribution ? copy.contributionSaved(lastContribution.photos?.length || 0) : '';
+    renderReceipt();
     photoPreview.querySelectorAll('figcaption').forEach(caption => {
       caption.textContent = `${caption.dataset.filename}${caption.dataset.saved ? ` · ${copy.savedPhoto}` : ''}${caption.dataset.unavailable ? ` — ${copy.previewUnavailable}` : ''}`;
     });
@@ -293,6 +357,23 @@
     });
     renderFeedback();
   }
+  root.querySelector('[data-edit-contribution]').addEventListener('click', () => {
+    editingContribution = true;
+    canDiscardContributionEdits = true;
+    renderFeedback();
+    storyInput.focus();
+  });
+  root.querySelector('[data-cancel-contribution]').addEventListener('click', () => {
+    if (!lastContribution || submissionState.pendingUpload || !canDiscardContributionEdits || submissionState.contributionBusy) return;
+    storyInput.value = lastContribution.story;
+    storyInput.setCustomValidity('');
+    photoInput.value = '';
+    validatePhotos();
+    editingContribution = false;
+    submissionState.contributionStatus = {kind:'success'};
+    renderPhotoPreviews();
+    focusReceipt();
+  });
   photoInput.addEventListener('change', () => {
     submissionState.contributionStatus = null;
     const files = validatePhotos();
@@ -320,6 +401,9 @@
       return;
     }
     submissionState.contributionBusy = true;
+    // A failed upload may have saved only part of a replacement. Keep the retry
+    // form open instead of presenting the previous receipt as a confirmed save.
+    canDiscardContributionEdits = false;
     submissionState.contributionStatus = null;
     submissionState.progress = null;
     renderFeedback();
@@ -330,6 +414,7 @@
       });
       if (!saved || typeof saved.story !== 'string' || !Array.isArray(saved.photos)) throw new Error('Invalid save response');
       lastContribution = saved;
+      editingContribution = false;
       submissionState.pendingUpload = false;
       storyInput.value = saved.story;
       photoInput.value = '';
@@ -341,6 +426,7 @@
       submissionState.contributionBusy = false;
       submissionState.progress = null;
       renderFeedback();
+      if (submissionState.contributionStatus?.kind === 'success') focusReceipt();
     }
   });
   async function restoreGuest() {

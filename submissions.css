@@ -24,3 +24,36 @@
   padding: 9px;
   border: 1px solid var(--party-line);
 }
+
+/* A saved contribution becomes a compact receipt, not another upload form. */
+#gatsby-invitation .party-receipt { position: relative; max-width: 720px; margin: 12px auto 0; text-align: center; padding: 26px 0 6px; animation: receipt-arrive .55s ease-out both; }
+#gatsby-invitation .party-receipt:focus { outline: none; }
+#gatsby-invitation .receipt-seal { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 26px; border: 1px solid var(--party-gold); outline: 1px solid #cfad7035; outline-offset: 6px; transform: rotate(45deg); background: #cfad700a; }
+#gatsby-invitation .receipt-seal svg { width: 40px; height: 40px; transform: rotate(-45deg); stroke: var(--party-gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#gatsby-invitation .receipt-eyebrow { color: var(--party-gold); font-size: 11px; letter-spacing: .18em; margin: 32px 0 14px; }
+#gatsby-invitation .party-receipt h2 { margin: 0 0 18px; font: 400 clamp(44px,5.5vw,76px)/1.04 'Cormorant Garamond',serif; color: var(--party-ink); }
+#gatsby-invitation .receipt-summary { color: var(--party-ink); font-size: clamp(16px,2vw,21px); line-height: 1.6; margin: 0 auto 10px; overflow-wrap: anywhere; }
+#gatsby-invitation .receipt-privacy { font-size: 13px; line-height: 1.7; color: var(--party-muted); margin: 0 auto; max-width: 470px; }
+#gatsby-invitation .receipt-details { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; padding: 24px 0; margin: 26px 0 20px; border-block: 1px solid var(--party-line); }
+#gatsby-invitation .receipt-details div { min-width: 0; }
+#gatsby-invitation .receipt-details dt { color: var(--party-muted); font-size: 11px; margin-bottom: 6px; }
+#gatsby-invitation .receipt-details dd { margin: 0; color: var(--party-gold); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+#gatsby-invitation .receipt-photos { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 0 0 20px; }
+#gatsby-invitation .receipt-photos:empty { display: none; }
+#gatsby-invitation .receipt-photos figure { width: 104px; min-width: 0; margin: 0; }
+#gatsby-invitation .receipt-photos img { width: 104px; height: 88px; display: block; object-fit: contain; border: 1px solid var(--party-line); padding: 4px; background: #080808; }
+#gatsby-invitation .receipt-photos figcaption { font-size: 10px; color: var(--party-muted); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#gatsby-invitation .party-receipt .party-small-button { font-size: 13px; padding: 12px 20px; }
+#gatsby-invitation .receipt-cancel { margin-left: 12px; border-color: transparent; }
+#gatsby-invitation .party-photo-previews { grid-template-columns: repeat(auto-fit,minmax(120px,180px)); }
+#gatsby-invitation .party-photo-previews img { height: 130px; aspect-ratio: auto; object-fit: contain; }
+@keyframes receipt-arrive { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@media(max-width:500px) {
+  #gatsby-invitation .receipt-details { gap: 8px; }
+  #gatsby-invitation .receipt-details dd { font-size: 13px; }
+  #gatsby-invitation .receipt-photos { gap: 8px; }
+  #gatsby-invitation .receipt-photos figure { width: 86px; }
+  #gatsby-invitation .receipt-photos img { width: 86px; height: 76px; }
+  #gatsby-invitation .receipt-cancel { margin-left: 0; }
+}
+@media(prefers-reduced-motion:reduce) { #gatsby-invitation .party-receipt { animation: none; } }

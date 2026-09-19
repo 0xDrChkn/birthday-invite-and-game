@@ -1,16 +1,16 @@
 /* Full-castle arrival, followed by the invitation's story chapters. */
 body { padding: 0; }
-#gatsby-invitation { max-width: none; overflow: clip; background: #101211; }
+#gatsby-invitation { max-width: none; overflow: clip; background: #080808; }
 #gatsby-invitation .party-frame { width: calc(100% - 48px); max-width: 780px; margin: 64px auto 48px; scroll-margin-top: 24px; }
 #gatsby-invitation .party-frame:focus { outline: none; }
-#gatsby-invitation .party-sound-floating { position: fixed; z-index: 60; left: max(18px, env(safe-area-inset-left)); top: calc(max(18px, env(safe-area-inset-top)) + 56px); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; max-width: calc(100vw - 36px); padding: 9px 13px; border: 1px solid #d3b58055; border-radius: 0; color: #ead6ad; background: #101413db; backdrop-filter: blur(12px); font: 400 11px/1.4 'Jost', sans-serif; letter-spacing: .06em; cursor: pointer; }
-#gatsby-invitation .party-sound-floating:hover { background: #1c2421; border-color: #d3b580; }
-#gatsby-invitation .cinema-intro { --cinema-gold: #d3b580; position: relative; color: #f7efdf; background: #080e10; isolation: isolate; }
+#gatsby-invitation .party-sound-floating { position: fixed; z-index: 60; left: max(18px, env(safe-area-inset-left)); top: calc(max(18px, env(safe-area-inset-top)) + 56px); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; max-width: calc(100vw - 36px); padding: 9px 13px; border: 1px solid #d3b58055; border-radius: 0; color: #ead6ad; background: #101010db; backdrop-filter: blur(12px); font: 400 11px/1.4 'Jost', sans-serif; letter-spacing: .06em; cursor: pointer; }
+#gatsby-invitation .party-sound-floating:hover { background: #232323; border-color: #d3b580; }
+#gatsby-invitation .cinema-intro { --cinema-gold: #d3b580; position: relative; color: #f7efdf; background: #080808; isolation: isolate; }
 #gatsby-invitation .cinema-sticky { position: relative; min-height: 100svh; padding: 92px 24px 46px; overflow: hidden; isolation: isolate; }
-#gatsby-invitation .cinema-mansion { position: absolute; inset: 0; z-index: -3; opacity: .2; overflow: hidden; background: #080e10; }
+#gatsby-invitation .cinema-mansion { position: absolute; inset: 0; z-index: -3; opacity: .2; overflow: hidden; background: #080808; }
 #gatsby-invitation .cinema-mansion img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; }
 #gatsby-invitation .cinema-wide-shot { transform-origin: 50% var(--cinema-door-y, 65.5%); }
-#gatsby-invitation .cinema-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, #050b10a8, transparent 45%, #050a0f66 65%, #080d10ed), radial-gradient(ellipse at 50% 42%, transparent 20%, #050a1066 85%); }
+#gatsby-invitation .cinema-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, #000000a8, transparent 45%, #00000066 65%, #080808ed), radial-gradient(ellipse at 50% 42%, transparent 20%, #00000066 85%); }
 #gatsby-invitation .cinema-dust { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .36; background-image: radial-gradient(circle at 11% 62%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 29% 77%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 74% 45%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 89% 70%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 67% 87%, #ead59a 0 1px, transparent 2px); }
 #gatsby-invitation .cinema-nav { position: absolute; z-index: 20; top: max(18px, env(safe-area-inset-top)); left: clamp(18px, 4vw, 60px); right: clamp(18px, 4vw, 60px); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
 #gatsby-invitation .cinema-skip, #gatsby-invitation .cinema-languages button { min-height: 44px; color: #f7efdf; font-size: 11px; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; text-shadow: 0 2px 12px #000; }
@@ -28,7 +28,7 @@ body { padding: 0; }
 #gatsby-invitation .cinema-guest-scene { position: relative; isolation: isolate; }
 #gatsby-invitation .cinema-guest-backdrop { position: absolute; z-index: -1; inset: -100px -60px; overflow: hidden; pointer-events: none; }
 #gatsby-invitation .cinema-guest-backdrop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: blur(36px) brightness(.28) saturate(.75); transform: scale(1.1); }
-#gatsby-invitation .cinema-guest-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #080e10, transparent 35%), linear-gradient(90deg, #080e1066, transparent 70%); }
+#gatsby-invitation .cinema-guest-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #080808, transparent 35%), linear-gradient(90deg, #08080866, transparent 70%); }
 #gatsby-invitation .cinema-portrait { display: block; position: relative; width: min(90vw, 520px); height: auto; aspect-ratio: 1; margin: 0 auto; object-fit: contain; object-position: center; -webkit-mask-image: radial-gradient(ellipse 66% 68% at 50% 43%, #000 50%, transparent 85%); mask-image: radial-gradient(ellipse 66% 68% at 50% 43%, #000 50%, transparent 85%); }
 #gatsby-invitation .cinema-welcome { position: relative; z-index: 8; max-width: 900px; margin: 28px auto 0; text-align: center; }
 #gatsby-invitation .cinema-welcome h2 { font: 400 clamp(82px, 10vw, 164px)/.9 'Cormorant Garamond', Georgia, serif; letter-spacing: -.045em; margin-top: 14px; text-shadow: 0 2px 30px #000; overflow-wrap: anywhere; }

@@ -17,7 +17,7 @@
   let previewUrls = [];
   const submissionCopy = {
     en: {
-      unavailable: 'Replies and photo uploads are not connected yet. Please check back before sending.',
+      unavailable: 'RSVP and photo submissions aren’t open yet. Please check back soon.',
       serviceUnavailable: 'We couldn’t connect to save this. Your entries are still here. Please try again in a moment.',
       restoring: 'Checking for your saved reply…',
       restoreFailed: 'We couldn’t load your previous reply. You can try submitting it again.',
@@ -46,7 +46,7 @@
       invalid: 'Please check your name, story and photos, then try again.'
     },
     nb: {
-      unavailable: 'Svar og bildeopplasting er ikke koblet til ennå. Kom tilbake litt senere for å sende inn.',
+      unavailable: 'Påmelding og bildeinnsending er ikke åpnet ennå. Kom tilbake snart.',
       serviceUnavailable: 'Vi fikk ikke kontakt for å lagre dette. Det du har fylt inn er fortsatt her. Prøv igjen om litt.',
       restoring: 'Ser etter det lagrede svaret ditt…',
       restoreFailed: 'Vi kunne ikke hente det forrige svaret ditt. Du kan prøve å sende det inn på nytt.',
@@ -166,12 +166,15 @@
   function renderFeedback() {
     const copy = submissionCopy[state.language];
     const busy = submissionState.restoring || submissionState.rsvpBusy || submissionState.contributionBusy;
-    const disabled = busy || !isConfigured();
+    const disabled = busy;
     rsvpForm.setAttribute('aria-busy', String(submissionState.restoring || submissionState.rsvpBusy));
     contributionForm.setAttribute('aria-busy', String(submissionState.contributionBusy));
     rsvpForm.querySelectorAll('input, button').forEach(element => { element.disabled = disabled; });
     contributionForm.querySelectorAll('input, textarea, button').forEach(element => { element.disabled = disabled || !lastReply; });
-    root.querySelector('[data-i18n="rsvpNote"]').textContent = isConfigured() ? copy.rsvpNote : copy.unavailable;
+    const rsvpNote = root.querySelector('[data-i18n="rsvpNote"]');
+    rsvpNote.textContent = isConfigured() ? copy.rsvpNote : copy.unavailable;
+    // The live status announces this same message after an unavailable submission.
+    rsvpNote.hidden = submissionState.rsvpStatus?.error?.code === 'not_configured';
     root.querySelector('[data-i18n="contributeNote"]').textContent = isConfigured() ? copy.contributionNote : copy.unavailable;
     root.querySelector('[data-i18n="photosLabel"]').textContent = template(config.copy[state.language].photosLabel) + copy.optional;
     root.querySelector('#party-photos-hint').textContent = copy.photosHint + (lastContribution?.photos?.length ? ` ${copy.replacing}` : '');
@@ -216,7 +219,12 @@
   root.querySelector('[data-close-photo]').addEventListener('click', () => { const slot = state.selectedPhoto % 3; state.selectedPhoto = null; render(); root.querySelector(`[data-memory="${slot}"]`).focus(); });
   rsvpForm.addEventListener('submit', async event => {
     event.preventDefault();
-    if (!isConfigured() || submissionState.restoring || submissionState.rsvpBusy || submissionState.contributionBusy) return;
+    if (submissionState.restoring || submissionState.rsvpBusy || submissionState.contributionBusy) return;
+    if (!isConfigured()) {
+      submissionState.rsvpStatus = { kind: 'error', error: { code: 'not_configured' } };
+      renderFeedback();
+      return;
+    }
     const name = guestInput.value.trim();
     if (!name) { guestInput.focus(); return; }
     // Enter in the name field defaults to the first, affirmative choice.

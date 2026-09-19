@@ -1,12 +1,18 @@
 # Birthday quiz — future implementation plan
 
-**Status: planned, not implemented.** The invitation comes first. The user has deferred the game and guest-submission storage until a later phase. This document preserves the agreed direction for a reusable birthday invitation and game project.
+**Status: category/design proposal, not a playable game yet.** Updated 19 September 2026 after exploring the user's game reference. The user wants a simple host-operated TV game and recommendations for the rounds. Submission code exists separately; the live collection service is still being chosen.
 
 ## The experience
 
 A Jeopardy-style category board runs on one laptop connected to a TV. The host operates it with a mouse. Guests form **2–6 teams**, answer aloud, and see their scores on the television. The host enters team names; guests do not need accounts, phones, QR codes, or remote buzzers.
 
-For Sara’s party, the visual style should continue the invitation’s Gatsby theme: dark green or charcoal, warm gold, Art Deco details, large readable type, and a little dry humour. The event is Sara Matilda Berner’s 30th birthday on **17 November 2026 at 19:00**. Keep the game reusable for other people and themes; do not bake Sara’s name or party date into the scoring logic.
+For Sara’s party, the visual style continues the invitation’s Gatsby theme: **neutral black, charcoal and warm gold; no green**, Art Deco details and large readable type. The event is Sara Matilda Berner’s 30th birthday on **17 November 2026 at 19:00**. Keep the game reusable for other people and themes; do not bake Sara’s name or party date into the scoring logic.
+
+## Reference explored
+
+[Bright Play Show](https://bright-play-show.lovable.app/) was inspected through the board, category editor and text/picture question dialogs. Its active “Philip Bday” preset has ten categories, five values, team scores, a 45-second countdown, pause, answer reveal, correct/incorrect scoring and undo. It also exposes reusable presets, team editing and optional wildcards. No reference settings, scores, uploads or question content were saved or changed.
+
+The user's two favourites are different formats: **Famous Philips** is trivia about people named Philip/Phil; **The Birthday Boy** shows celebrity face mashups. Keep that distinction in Sara's adaptation. The geography round uses country silhouettes.
 
 ## The host’s flow
 
@@ -26,20 +32,51 @@ These are creative directions, not a completed question bank. Personal facts, ph
 
 | Category | Round idea | Content needed |
 | --- | --- | --- |
-| **Sara or Celebrity?** | Merge Sara’s face into a recognisable celebrity photograph; teams identify the celebrity, film, character or scene. | Selected Sara reference photos, celebrity/scene references, the chosen question and accepted answer. Images are prepared in advance. |
-| **Where in the World Is Sara?** | Identify a place from a travel photo, map crop or clue. Mix personal travels with geography if desired. | Sara’s travel photos and verified locations. Avoid inferring locations from an unconfirmed picture. |
-| **Science, Darling** | A science round with playful wording and increasing difficulty. | A short set of checked questions and unambiguous accepted answers. |
-| **The Sara Archives** | Stories, milestones, childhood photos, “what happened next?” and other evidence from her journey to thirty. | Real stories and dates supplied by the host or guests; only use material approved for the party. |
-| **Who Said That?** | Match a quotation or anecdote to the person who said it, or distinguish a Sara quote from a decoy. | Actual quotations and their authors; clearly distinguish authored decoys from real quotations. |
-| **The Roaring Twenties** | Gatsby, music, film, the 1920s and a farewell to Sara’s twenties. | Checked general questions, plus any personal questions the host chooses to add. |
+| **Famous Saras** | Identify well-known Saras/Sarahs from a photograph or short clue. This is the adaptation of Famous Philips. | Five recognisable public figures or fictional characters and checked clues. Candidate pool: Sarah Jessica Parker, Sarah Michelle Gellar, Sarah Paulson, Sarah Connor and Sarah Lund. Confirm which references suit the guest group. |
+| **The Birthday Girl** | Sara's face is blended into a celebrity; name the other person. Keep it purely visual and allow time for the room to react. | Five prepared mashups and accepted answers. Candidate targets: Leonardo DiCaprio, Taylor Swift, Rihanna, Gordon Ramsay and Ryan Gosling. These are proposed targets, not finished assets. |
+| **What’s That Country?** | Country silhouettes, flags or one unmistakable landmark. Easy questions let everyone contribute. | Five verified maps/images with answer-neutral filenames and alt text. Use familiar shapes for 100/200; rotate or crop only in the harder clues. Personal travel photos can be a bonus once their locations are confirmed. |
+| **The Roaring Twenties** | Prohibition, dance, early cinema and Gatsby, with amusing but accurate clues. | See the sourced draft below. Keep Norway's spirits ban distinct from US Prohibition. No invented historical licences. |
+| **The Sara Archives** | Sporting days, real quotes and “what happened next?” from guest stories. | Five host-checked stories/photos/answers. Use multiple choice where only a few close friends would know the answer. The table-tennis pictures are good material, but the host must confirm any date, event or achievement. |
+| **Bad Movie Plots** | Recognise a familiar film from a deliberately unglamorous one-sentence synopsis. | Five original descriptions of films the group knows. Keep them accurate and avoid ambiguous franchise-wide answers. |
+
+**Recommendation: six categories × five clues = 30 questions.** This gives a readable television board and a mix of personal material, pictures, geography, history and mainstream entertainment. Allow roughly 45–60 minutes as a planning estimate, depending on conversation and photo reactions. The 100/200 questions should be welcoming; 400/500 should remain solvable rather than obscure.
+
+Backup/swap-in rounds:
+
+- **Science + Tech:** everyday science, common inventions and one playful experiment/photo. Swap for Bad Movie Plots if the group prefers science.
+- **Match Point:** table-tennis rules plus Sara's confirmed sporting memories. Use instead of The Sara Archives if there is enough good material.
+- **Who Said It?:** real Sara quotes mixed with recognisable film lines. Requires verified quotes; do not invent Sara quotations.
+- **One-Hit Wonders:** artist/song identification. Audio clips need permitted sources; do not depend on automatic playback.
+
+## Black-and-gold TV treatment
+
+Use the same Cormorant Garamond headings and Jost labels as the invitation, black `#080808`, charcoal `#141414`, ivory `#f3ead7` and champagne gold `#cfad70`. Six even columns, thin Art Deco borders, large gold point values without dollar signs, and a compact team-score rail. No blue game-show background or green panels.
+
+Clicking a tile should expand into a calm, nearly full-screen clue. Images use `object-fit: contain`; never crop a face or a country silhouette. Keep the timer in a small corner and the reveal/scoring controls along the bottom. A short gold line sweep and fade are enough animation; no long interstitials between every question. Returning to the board marks completed clues with a small gold diamond.
+
+Borrow the useful controls from the reference: 45-second optional timer, pause, reveal, current-team selection, plus/minus, undo, and reusable question packs. A single optional **Double or Nothing** token per team is enough for the first version; decide it before revealing the answer. Leave other wildcards out of the initial flow unless the host requests them.
+
+## Sourced Roaring Twenties draft
+
+These are draft clue ideas, not deployed game answers. Difficulty/order can change after a rehearsal.
+
+| Points | Question | Answer and source |
+| --- | --- | --- |
+| 100 | During US Prohibition, what was an illicit bar commonly called? | **A speakeasy.** [The Mob Museum](https://prohibition.themobmuseum.org/the-history/the-prohibition-underworld/the-speakeasies-of-the-1920s/) |
+| 200 | What nickname did films with spoken dialogue acquire as silent cinema gave way to sound? | **Talkies.** [Library of Congress](https://loc.gov/loc/lcib/08012/silent.html) |
+| 300 | Pick the dance most associated with 1920s flappers: the Charleston, the Macarena or the moonwalk. | **The Charleston.** [Library of Congress](https://guides.loc.gov/chronicling-america-flappers) |
+| 400 | Before Leonardo raised his glass, who wrote the 1925 novel The Great Gatsby? | **F. Scott Fitzgerald**; accept Fitzgerald. [Library of Congress](https://loc.gov/exhibits/america-reads/1900-to-1949.html) |
+| 500 | Norway had a spirits ban too. Was it formally repealed in 1923, 1927 or 1933? | **1927.** [FHI](https://www.fhi.no/le/alkohol/alkoholinorge/alkohol-i-historien/historisk-oversikt-alkohol-i-norge-1816-2019/) |
+
+Host note: the Norwegian referendum was in 1926, but formal repeal was in 1927. The fortified-wine ban ended separately in 1923. The invitation itself gives the 1927 answer, rewarding guests who read it.
 
 Do not fill missing personal clues with invented Sara facts. During preparation, empty slots should be visibly marked as drafts and unavailable for play. The finished party board can use fewer categories or clues if that produces a better game than filler.
 
 ## Guest stories and top three photos
 
-The invitation should eventually let a guest submit **one favourite Sara story and up to three photographs**. Explain that the host may select contributions for a collage or party quiz. Contributions should go to a private host review area, where the host can select, caption and adapt them into clues.
+The invitation collects **one favourite Sara story and up to three photographs** once a live service is connected. Explain that the host may select contributions for a collage or party quiz. Contributions go to a private host review area, where the host can select, caption and adapt them into clues.
 
-**Submission handling is deferred and requires future private storage.** A public Git repository or GitHub Pages asset folder is not a submission inbox. Do not commit guest submissions, personal anecdotes, unapproved photographs, response lists, credentials or upload tokens to the public repository. A preview must not claim that a story or upload has been sent when no receiving service is connected.
+**The Supabase implementation is built and locally tested; the user has now requested a simpler hosted-form or Discord alternative. Live collection is not yet connected.** See `SUBMISSIONS.md` for the existing implementation. A public Git repository or GitHub Pages asset folder is not a submission inbox. Do not commit guest submissions, personal anecdotes, unapproved photographs, response lists, credentials or upload tokens to the public repository. A preview must not claim that a story or upload has been sent when no receiving service is connected.
 
 When storage is chosen, define the accepted image formats and size limits, a maximum of three uploads, guest attribution, consent for party use, host access, and deletion/export. Use server-enforced checks rather than relying only on the browser. Reuse reviewed contributions across the collage and quiz without publishing the whole submission collection.
 

@@ -8,7 +8,7 @@ A host-controlled game for one laptop connected to a television. Open [the game]
 4. Reveal the answer when ready, then **Finish clue** to mark the tile as played.
 5. Use **Undo** for a scoring mistake, even after finishing the clue. Closing a clue without finishing keeps existing scores and allows you to return to it.
 
-Reactions can be switched off from the board; they default off for reduced-motion preferences. The eight source stickers are static WebPs, animated with a CSS entrance or shake. There is no automatic sound.
+Reactions can be switched off from the board; they default off for reduced-motion preferences. The eight source stickers are static WebPs, shown as large frameless cutouts with six rotating entrance effects. Correct/wrong each rotate through four images; gold/red glows identify the result. Continue or Escape skips the 2.6-second overlay. There is no automatic sound.
 
 The English/Norwegian switch changes the interface and clues. The board is designed for a landscape TV/laptop. On small phones, swipe the board horizontally to keep all six columns legible.
 
@@ -20,20 +20,21 @@ There are six categories with five slots each. **22 clues are playable; 8 person
 - `assets/` contains the supplied stickers and two already-approved photo clues.
 - `engine.js` owns teams, score events, duplicate prevention, completion, undo and validated restoration.
 - `app.js` owns the browser interface and timer.
+- `session-store.js` prevents an older tab from overwriting a newer saved game.
 - `game.css` owns the black-and-gold presentation.
 
 To reuse the game, change the pack ID, content and branding. To complete a draft clue, add verified question/answer text and any image, then remove `draft: true`. Clue IDs must remain unique. The pack fingerprint detects changed content and prevents an old game being restored against different questions.
 
-Scores save only in this browser on this device. They are not shared with guests or backed up remotely. Reload restores the current clue and paused timer. New game clears scores only after confirmation. Local saving failures are shown rather than silently ignored.
+Scores save only in this browser on this device. They are not shared with guests or backed up remotely. Reload restores the current clue and paused timer. New game clears scores only after confirmation. Local saving failures are shown rather than silently ignored. If another tab changes the save, the older tab pauses and asks you to load the latest game before continuing. Use one host tab.
 
 The public pack is a rehearsal pack: its answers are public source code. Do not commit private guest stories or secret final answers to this repository. Private local pack import remains future work.
 
 ## Checks
 
 ```sh
-node --test tests/game-engine.cjs
+node --test tests/game-engine.cjs tests/session-store.cjs
 node --check game/app.js
 node --check game/pack.js
 ```
 
-See [content sources and remaining clues](../docs/GAME-CONTENT.md) and [the broader game plan](../docs/GAME-PLAN.md).
+See the [full specification and Lovable comparison](../docs/GAME-SPEC.md), [recommended six categories and 30 clue briefs](../docs/GAME-CATEGORIES.md), [current content sources](../docs/GAME-CONTENT.md), and [verification results](../docs/GAME-QA.md).

@@ -4,6 +4,8 @@
   const pack = window.BIRTHDAY_GAME_PACK;
   const $ = selector => document.querySelector(selector);
   const STORE = 'birthday-game:' + pack.id + ':v1';
+  const session = window.BirthdayGameSessionStore.create(() => window.localStorage, STORE);
+  const initialSave = session.read();
   const clueDialog = $('#clue-dialog');
   const reactionDialog = $('#reaction-dialog');
   const english = {};
@@ -29,21 +31,24 @@
     draftHelp:'Ruter merket «Må klargjøres» trenger personlige spørsmål eller bilder. De kan ikke åpnes før innholdet er lagt inn.',
     understood:'Skjønner', newRound:'EN NY START', resetTitle:'Starte et nytt spill?',
     resetBody:'Dette nullstiller poengene og spilte spørsmål i denne nettleseren. Spørsmålspakken beholdes.',
-    keepPlaying:'Fortsett spillet', resetConfirm:'Start nytt spill'
+    keepPlaying:'Fortsett spillet', resetConfirm:'Start nytt spill',
+    conflictTitle:'Spillet er endret i en annen fane.', conflictBody:'Denne fanen er satt på pause for å beskytte de nyeste poengene. Last inn det lagrede spillet på nytt før du fortsetter.', reloadGame:'Last inn nyeste spill'
   };
   const ui = {
-    en:{team:'Team',draft:'To prepare',played:'Played',done:'clues played',paused:'Resume timer',pause:'Pause',start:'Start timer',time:'Time’s up',on:'Sara reactions: on',off:'Sara reactions: off',pick:'Choose the answering team.',tried:'This team has already tried. Choose another team or undo.',resolved:'Points awarded. Finish the clue when ready.',wrong:'Another team can try, or reveal the answer.',savedError:'This browser cannot save your game. Keep this page open to retain your scores.',restoreError:'The saved game could not be restored with this question pack. Start a new game below.',names:'Give each team a different name (1–40 characters).',error:'That action could not be completed. Please try again.',fullscreen:'Full screen is unavailable here. You can use your browser’s full-screen control.',preview:'Reaction preview',correct:'CORRECT ANSWER',incorrect:'NOT THIS TIME',winner:'THE WINNING TEAM',tie:'HONOURS SHARED',points:'points',back:'Return to board',close:'Close',seconds:'Seconds remaining',resetTimer:'Reset timer',reaction:'Sara reaction',image:'Picture clue',selected:'Selected',timerEnded:'Time is up. The host decides whether to accept an answer.'},
-    nb:{team:'Lag',draft:'Må klargjøres',played:'Spilt',done:'spørsmål spilt',paused:'Fortsett klokken',pause:'Pause',start:'Start klokken',time:'Tiden er ute',on:'Sara-reaksjoner: på',off:'Sara-reaksjoner: av',pick:'Velg laget som svarer.',tried:'Dette laget har allerede prøvd. Velg et annet lag eller angre.',resolved:'Poengene er gitt. Avslutt spørsmålet når dere er klare.',wrong:'Et annet lag kan prøve, eller du kan vise svaret.',savedError:'Nettleseren kan ikke lagre spillet. Hold siden åpen for å beholde poengene.',restoreError:'Det lagrede spillet kunne ikke hentes med denne spørsmålspakken. Start et nytt spill nedenfor.',names:'Gi hvert lag et eget navn (1–40 tegn).',error:'Handlingen kunne ikke fullføres. Prøv igjen.',fullscreen:'Fullskjerm er ikke tilgjengelig her. Bruk nettleserens fullskjermfunksjon.',preview:'Prøv en reaksjon',correct:'RIKTIG SVAR',incorrect:'IKKE DENNE GANGEN',winner:'VINNERLAGET',tie:'DELT SEIER',points:'poeng',back:'Tilbake til brettet',close:'Lukk',seconds:'Sekunder igjen',resetTimer:'Nullstill klokken',reaction:'Sara reagerer',image:'Bildespørsmål',selected:'Valgt',timerEnded:'Tiden er ute. Verten avgjør om svaret godtas.'}
+    en:{team:'Team',draft:'To prepare',played:'Played',done:'clues played',paused:'Resume timer',pause:'Pause',start:'Start timer',time:'Time’s up',on:'Sara reactions: on',off:'Sara reactions: off',pick:'Choose the answering team.',tried:'This team has already tried. Choose another team or undo.',resolved:'Points awarded. Finish the clue when ready.',wrong:'Another team can try, or reveal the answer.',savedError:'This browser cannot save your game. Keep this page open to retain your scores.',restoreError:'The saved game could not be restored with this question pack. Start a new game below.',names:'Give each team a different name (1–40 characters).',error:'That action could not be completed. Please try again.',fullscreen:'Full screen is unavailable here. You can use your browser’s full-screen control.',preview:'Reaction preview',correct:'CORRECT ANSWER',incorrect:'WRONG ANSWER',winner:'THE WINNING TEAM',tie:'HONOURS SHARED',points:'points',back:'Return to board',close:'Close',seconds:'Seconds remaining',resetTimer:'Reset timer',reaction:'Sara reaction',image:'Picture clue',selected:'Selected',timerEnded:'Time is up. The host decides whether to accept an answer.'},
+    nb:{team:'Lag',draft:'Må klargjøres',played:'Spilt',done:'spørsmål spilt',paused:'Fortsett klokken',pause:'Pause',start:'Start klokken',time:'Tiden er ute',on:'Sara-reaksjoner: på',off:'Sara-reaksjoner: av',pick:'Velg laget som svarer.',tried:'Dette laget har allerede prøvd. Velg et annet lag eller angre.',resolved:'Poengene er gitt. Avslutt spørsmålet når dere er klare.',wrong:'Et annet lag kan prøve, eller du kan vise svaret.',savedError:'Nettleseren kan ikke lagre spillet. Hold siden åpen for å beholde poengene.',restoreError:'Det lagrede spillet kunne ikke hentes med denne spørsmålspakken. Start et nytt spill nedenfor.',names:'Gi hvert lag et eget navn (1–40 tegn).',error:'Handlingen kunne ikke fullføres. Prøv igjen.',fullscreen:'Fullskjerm er ikke tilgjengelig her. Bruk nettleserens fullskjermfunksjon.',preview:'Prøv en reaksjon',correct:'RIKTIG SVAR',incorrect:'FEIL SVAR',winner:'VINNERLAGET',tie:'DELT SEIER',points:'poeng',back:'Tilbake til brettet',close:'Lukk',seconds:'Sekunder igjen',resetTimer:'Nullstill klokken',reaction:'Sara reagerer',image:'Bildespørsmål',selected:'Valgt',timerEnded:'Tiden er ute. Verten avgjør om svaret godtas.'}
   };
   let language = 'en';
   let state = null;
   let names = ['The Bootleggers', 'Champagne Problems', 'The Old Sports'];
   let reactionsEnabled = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let reactionIndex = {correct:0,wrong:0};
+  let effectIndex = {correct:0,wrong:0};
+  const reactionEffects = {correct:['pop','float','swing'],wrong:['shake','drop','wobble']};
   let reactionTimeout = null;
   let timer = {clueId:null,remaining:45,running:false,deadline:0};
   let timerInterval = null;
-  let storageFailed = false;
+  let storageFailed = initialSave.status === 'unavailable';
   let restoreFailed = false;
   let notice = '';
   const clues = new Map();
@@ -56,15 +61,31 @@
     if (value !== undefined) node.textContent = value;
     return node;
   };
+  function lockConflictedSession() {
+    pauseTimer();
+    clearTimeout(reactionTimeout);
+    document.querySelectorAll('dialog[open]').forEach(dialog => {
+      if (dialog.id !== 'conflict-dialog') dialog.close();
+    });
+    $('.game-shell').inert = true;
+    if (!$('#conflict-dialog').open) $('#conflict-dialog').showModal();
+  }
+  function checkSession() {
+    const result = session.check();
+    if (result.status === 'conflict') { lockConflictedSession(); return false; }
+    storageFailed = result.status === 'unavailable';
+    return true;
+  }
   function save() {
     try {
-      localStorage.setItem(STORE, JSON.stringify({state,language,reactionsEnabled,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
-      storageFailed = false;
+      const result = session.write(JSON.stringify({state,language,reactionsEnabled,timer:{clueId:timer.clueId,remaining:timer.remaining}}));
+      if (result.status === 'conflict') { lockConflictedSession(); return; }
+      storageFailed = result.status === 'unavailable';
     } catch { storageFailed = true; }
     renderNotice();
   }
   try {
-    const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+    const saved = JSON.parse(initialSave.raw || 'null');
     if (saved) {
       language = saved.language === 'nb' ? 'nb' : 'en';
       if (typeof saved.reactionsEnabled === 'boolean') reactionsEnabled = saved.reactionsEnabled;
@@ -202,16 +223,18 @@
     if (!clueDialog.open) clueDialog.showModal();
   }
   function render() {
+    if (session.hasConflict()) { lockConflictedSession(); return; }
     document.body.classList.toggle('playing',!!state);
     $('#setup').hidden = !!state; $('#play').hidden = !state;
     if (state) { renderScoreboard(); renderBoard(); renderClue(); }
     renderNotice();
   }
   function act(action,...args) {
+    if (!checkSession()) return false;
     try {
       if (['finishClue','cancelClue','reveal','undo'].includes(action)) pauseTimer();
       state = engine[action](state,...args);
-      notice = ''; restoreFailed = false; save(); render(); return true;
+      notice = ''; restoreFailed = false; save(); render(); return !session.hasConflict();
     } catch (error) {
       notice = ['invalid_name','duplicate_name','invalid_teams'].includes(error.code) ? copy().names : copy().error;
       renderNotice();
@@ -225,12 +248,13 @@
     const image = src || list[reactionIndex[kind]++ % list.length];
     if (!image) return;
     reactionDialog.classList.toggle('wrong',kind === 'wrong');
+    reactionDialog.dataset.effect = reactionEffects[kind][effectIndex[kind]++ % reactionEffects[kind].length];
     $('#reaction-heading').textContent = kind === 'correct' ? copy().correct : copy().incorrect;
     $('#reaction-image').src = image;
     $('#reaction-points').textContent = value == null ? (kind === 'correct' ? '✓' : '×') : (kind === 'correct' ? '+' : '−') + value;
     $('#reaction-team').textContent = team || copy().preview;
     if (!reactionDialog.open) reactionDialog.showModal();
-    reactionTimeout = setTimeout(() => { if (reactionDialog.open) reactionDialog.close(); },3200);
+    reactionTimeout = setTimeout(() => { if (reactionDialog.open) reactionDialog.close(); },2600);
   }
   function award(sign) {
     const clue = clues.get(state.currentClueId);
@@ -241,6 +265,21 @@
       if (reactionsEnabled) showReaction(sign === 1 ? 'correct' : 'wrong',clue.value,team.name);
     }
   }
+  // Any tab that observes a newer save must reload before taking control.
+  window.addEventListener('storage', event => { if (event.key === STORE || event.key === null) checkSession(); });
+  document.addEventListener('click', event => {
+    const button = event.target.closest('button');
+    if (button && button.id !== 'reload-game' && !checkSession()) {
+      event.preventDefault(); event.stopImmediatePropagation();
+    }
+  }, true);
+  document.addEventListener('submit', event => {
+    if (!checkSession()) { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
+  $('#conflict-dialog').addEventListener('cancel', event => event.preventDefault());
+  $('#reload-game').addEventListener('click', () => window.location.reload());
+  // Small local cutouts are ready before the first scoring decision.
+  Object.values(pack.reactions).flat().forEach(src => { const image = new Image(); image.src = src; });
   $('#team-form').addEventListener('submit',event => {
     event.preventDefault(); readNames();
     try { state = engine.create(names,pack); notice=''; restoreFailed=false; timer={clueId:null,remaining:45,running:false,deadline:0}; save(); render(); window.scrollTo({top:0}); }

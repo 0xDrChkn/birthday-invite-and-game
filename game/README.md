@@ -8,7 +8,7 @@ A host-controlled game for one laptop connected to a television. Open [the game]
 4. Reveal the answer when ready, then **Finish clue** to mark the tile as played.
 5. Use **Undo** for a scoring mistake, even after finishing the clue. Closing a clue without finishing keeps existing scores and allows you to return to it.
 
-Reactions can be switched off from the board; they default off for reduced-motion preferences. The eight source stickers are static WebPs, shown as large frameless cutouts with six rotating entrance effects. Correct/wrong each rotate through four images; gold/red glows identify the result. Continue or Escape skips the 2.6-second overlay. There is no automatic sound.
+Reactions can be switched off from the board; they default off for reduced-motion preferences. Only the two selected stickers are used: the pink-sweater pose for correct answers and the sceptical face for wrong answers. Other stickers no longer rotate in. The frameless entrance effects and gold/red result glows remain. Continue or Escape skips the 2.6-second overlay. There is no automatic sound.
 
 The English/Norwegian switch changes the interface and clues. The board is designed for a landscape TV/laptop. On small phones, swipe the board horizontally to keep all six columns legible.
 

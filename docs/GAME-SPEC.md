@@ -29,14 +29,14 @@ A host can pass by switching teams without awarding points, or finish with no sc
 
 ### Sara's correct/wrong reactions
 
-Use the eight supplied WebPs as transparent cutouts **without a surrounding card or picture frame**, as in the reference screenshot. A correct decision gets a warm gold glow; a wrong decision gets a muted red glow. The page itself stays black and gold.
+Use the two selected WebPs as transparent cutouts **without a surrounding card or picture frame**, as in the reference screenshot. A correct decision gets a warm gold glow; a wrong decision gets a muted red glow. The page itself stays black and gold.
 
-Four stickers rotate for each result; three entrance effects rotate independently for each result. Correct uses pop, float or swing; wrong uses shake, drop or wobble. The current images are static originals: CSS supplies the movement. One reaction appears per score decision, displays the team and signed points, and dismisses after 2.6 seconds or immediately with Continue/Escape. No repeated face or entrance on consecutive results of the same type. Reactions can be switched off and default off under reduced motion; if enabled with reduced motion, their entrances remain still.
+The pink-sweater pose is always correct; the sceptical face is always wrong. Three entrance effects still rotate independently for each result. Correct uses pop, float or swing; wrong uses shake, drop or wobble. The current images are static originals: CSS supplies the movement. One reaction appears per score decision, displays the team and signed points, and dismisses after 2.6 seconds or immediately with Continue/Escape. The selected face stays the same; consecutive entrance effects differ. Reactions can be switched off and default off under reduced motion; if enabled with reduced motion, their entrances remain still.
 
 | Result | Original files | Game copies |
 | --- | --- | --- |
-| Correct | `sticker2.webp`, `sticker5.webp`, `sticker.webp`, `sticker4.webp` | `reaction-01.webp`–`reaction-04.webp` |
-| Wrong | `6.webp`, `sticker3.webp`, `sticker7.webp`, `sticker8.webp` | `reaction-05.webp`–`reaction-08.webp` |
+| Correct | `sticker5.webp` (pink sweater) | `reaction-02.webp` |
+| Wrong | `sticker3.webp` (sceptical face) | `reaction-06.webp` |
 
 The setup screen previews every sticker without awarding points. Sound is not yet part of the reaction. The source images are unchanged.
 
@@ -50,7 +50,7 @@ Inspected [Bright Play Show](https://bright-play-show.lovable.app/) and its [adm
 | Named presets containing questions, teams, settings and uploads | One rehearsal pack | Add reusable event packs. Local import/export is our proposed addition; it was not observed in the reference. |
 | Editable team list; host turn selector; standalone ±100 controls | Setup names, selected answering team, clue-based scoring | Add rename and a logged manual score correction. Model the choosing team separately from the answering team. |
 | Timer starts when a clue opens; configurable duration and four styles | Optional manual 45-second timer | Keep manual start as the default so the host can read aloud. Add duration setting; one clear countdown is enough initially. |
-| Correct/incorrect popup image; size setting; optional frame; eight selectable rotating entrance effects | Eight rotating Sara images; frameless treatment; six entrance effects across the two outcomes | Core requested effect is implemented. A size/animation chooser can live in preparation settings later. |
+| Correct/incorrect popup image; size setting; optional frame; eight selectable rotating entrance effects | Two fixed Sara images; frameless treatment; six entrance effects across the two outcomes | Core requested effect is implemented. A size/animation chooser can live in preparation settings later. |
 | Multiple correct/wrong audio clips, non-repeating rotation, time-up sound and built-in fallbacks | Silent | Optional next layer: separate mute/volume, brief clips and a test button. Never make scoring wait for media. |
 | DOUBLE UP, FIRST LETTER and STEAL actions; one-use token indicators on team cards | No tokens | Add only after rules are explicit. Start with one Double Up per team; keep the rest optional. Reference token behaviour was not activated/tested. |
 | Joker pool with speed prank, missing-word, reverse and shuffle variants | None | Later experiment, disabled by default. Some are unsuitable for image clues. Avoid disrupting the first rehearsal. |

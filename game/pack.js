@@ -89,9 +89,10 @@
         ]
       }
     ],
+    // Only the two host-selected reactions: pink-sweater pose and sceptical face.
     reactions: {
-      correct: ['assets/reaction-01.webp', 'assets/reaction-02.webp', 'assets/reaction-03.webp', 'assets/reaction-04.webp'],
-      wrong: ['assets/reaction-05.webp', 'assets/reaction-06.webp', 'assets/reaction-07.webp', 'assets/reaction-08.webp']
+      correct: ['assets/reaction-02.webp'],
+      wrong: ['assets/reaction-06.webp']
     }
   };
 })();

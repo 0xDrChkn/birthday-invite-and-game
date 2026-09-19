@@ -12,7 +12,7 @@ Blomstervegen 37B, 2005 Rælingen, Norway
 
 “Reliving your twenties” / “Tjueårene om igjen”
 
-The invitation has English and Norwegian Bokmål, a camera approach through an already-open mansion entrance, Sara’s Gatsby toast portrait, an interactive photo album, directions, dress code, proposed programme and a playful BYOB notice. Mobile layouts and reduced-motion preferences are supported. Each invitation section fades into view as guests scroll. Guests can skip the entrance.
+The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code, food/drinks and the proposed programme open in focused dialogs. Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The original first three album photographs lead; the two table-tennis photographs come last. Guests can skip the entrance.
 
 **RSVP and story/photo submissions are local previews only. Nothing is sent or saved.** The TV game is planned, not playable yet. These are explicitly deferred features; see [the game plan](docs/GAME-PLAN.md) and [submission plan](docs/SUBMISSIONS.md).
 
@@ -48,13 +48,15 @@ node --check event-config.js
 node --check script.js
 node --check music.js
 node --check cinema.js
+node --check story.js
 ```
 
 ## Layout
 
 - `index.html`, `style.css`, `script.js`: invitation, interactions and responsive layout.
 - `event-config.js`: reusable identity, event, photos, audio and bilingual content.
-- `cinema.js`, `cinema.css`: scroll entrance and section reveals.
+- `cinema.js`, `cinema.css`: full-castle camera approach and Sara greeting.
+- `story.js`, `story.css`: scroll-driven chapters and detail dialogs.
 - `music.js`: optional background audio and discreet controls.
 - `assets/`: optimized public website images; Sara’s originals are not altered.
 - `game/`: honest placeholder for the later TV game, hosted alongside the invitation.

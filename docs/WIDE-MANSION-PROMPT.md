@@ -1,0 +1,7 @@
+# Full-castle entrance
+
+The opening uses `assets/gatsby-mansion-wide-open.jpg`, made with the built-in image generation tool by editing the original wide mansion photograph. The camera framing is preserved and the real doors are open. The page fits the whole photograph before scrolling and uses that same image throughout the zoom, then dissolves directly into Sara's portrait.
+
+## Final image prompt
+
+Use case: precise-object-edit. Edit target: the supplied wide photograph of the Gatsby mansion. Make ONE small local edit: open the real double doors within the central arch, with both door leaves swung fully inward to the sides, showing an inviting warmly lit hallway beyond the existing entrance. Keep the doorway's size and position EXACTLY as they are. Preserve the ENTIRE original wide shot: the full mansion from left wing to right wing, the whole roofline, trees, dark sky, gardens, reflective long approach path, lighting, perspective, and camera distance. DO NOT zoom in, DO NOT crop, DO NOT move the camera, DO NOT enlarge the entrance. The mansion must occupy the same area of the frame as in the input, and its central entrance remains a small detail in the wide shot. No people, no text, no graphics. Keep the original 16:9 landscape composition. Output a high-resolution, detailed version suitable for a slow digital zoom; if possible 3840x2160. The only scene change is the already-open doors and the warm hall visible through them.

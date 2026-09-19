@@ -1,4 +1,4 @@
-/* Full-bleed arrival, followed by the intimate printed invitation. */
+/* Full-castle arrival, followed by the invitation's story chapters. */
 body { padding: 0; }
 #gatsby-invitation { max-width: none; overflow: clip; background: #101211; }
 #gatsby-invitation .party-frame { width: calc(100% - 48px); max-width: 780px; margin: 64px auto 48px; scroll-margin-top: 24px; }
@@ -7,8 +7,9 @@ body { padding: 0; }
 #gatsby-invitation .party-sound-floating:hover { background: #1c2421; border-color: #d3b580; }
 #gatsby-invitation .cinema-intro { --cinema-gold: #d3b580; position: relative; color: #f7efdf; background: #080e10; isolation: isolate; }
 #gatsby-invitation .cinema-sticky { position: relative; min-height: 100svh; padding: 92px 24px 46px; overflow: hidden; isolation: isolate; }
-#gatsby-invitation .cinema-mansion { position: absolute; inset: 0; z-index: -3; opacity: .2; overflow: hidden; background: #101c1b; }
-#gatsby-invitation .cinema-mansion img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 50% 58%; transform-origin: 50% 58%; }
+#gatsby-invitation .cinema-mansion { position: absolute; inset: 0; z-index: -3; opacity: .2; overflow: hidden; background: #080e10; }
+#gatsby-invitation .cinema-mansion img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; }
+#gatsby-invitation .cinema-wide-shot { transform-origin: 50% var(--cinema-door-y, 65.5%); }
 #gatsby-invitation .cinema-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, #050b10a8, transparent 45%, #050a0f66 65%, #080d10ed), radial-gradient(ellipse at 50% 42%, transparent 20%, #050a1066 85%); }
 #gatsby-invitation .cinema-dust { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .36; background-image: radial-gradient(circle at 11% 62%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 29% 77%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 74% 45%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 89% 70%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 67% 87%, #ead59a 0 1px, transparent 2px); }
 #gatsby-invitation .cinema-nav { position: absolute; z-index: 20; top: max(18px, env(safe-area-inset-top)); left: clamp(18px, 4vw, 60px); right: clamp(18px, 4vw, 60px); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
@@ -38,10 +39,10 @@ body { padding: 0; }
 #gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none; }
 
 /* Variables are written once per animation frame; scrolling remains native. */
-#gatsby-invitation .cinema-intro.is-animated { height: 250svh; }
+#gatsby-invitation .cinema-intro.is-animated { height: 290svh; }
 #gatsby-invitation .is-animated .cinema-sticky { position: sticky; top: 0; height: 100svh; min-height: 0; padding: 0; }
 #gatsby-invitation .is-animated .cinema-mansion { opacity: var(--cinema-mansion-opacity, 1); }
-#gatsby-invitation .is-animated .cinema-mansion img { transform: scale(var(--cinema-zoom, 1)); will-change: transform; }
+#gatsby-invitation .is-animated .cinema-wide-shot { transform: translateY(var(--cinema-camera-y, 0px)) scale(var(--cinema-zoom, 1)); will-change: transform; }
 #gatsby-invitation .is-animated .cinema-arrival { display: block; position: absolute; z-index: 7; top: 21%; left: 24px; right: 24px; text-align: center; opacity: var(--cinema-arrival-opacity, 1); transform: translateY(var(--cinema-arrival-y, 0px)); pointer-events: none; }
 #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { margin-bottom: 30px; }
 #gatsby-invitation .is-animated .cinema-guest-scene { position: absolute; inset: 0; z-index: 1; opacity: var(--cinema-guest-opacity, 0); transform: scale(var(--cinema-guest-zoom, 1.04)); }
@@ -62,7 +63,7 @@ body { padding: 0; }
   @keyframes cinema-section-arrives { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 }
 @media (max-width: 700px) {
-  #gatsby-invitation .cinema-intro.is-animated { height: 210svh; }
+  #gatsby-invitation .cinema-intro.is-animated { height: 260svh; }
   #gatsby-invitation .cinema-nav { left: 18px; right: 14px; gap: 12px; }
   #gatsby-invitation .cinema-skip { font-size: 9px; letter-spacing: .08em; }
   #gatsby-invitation .cinema-eyebrow { font-size: 10px; letter-spacing: .16em; }
@@ -70,7 +71,6 @@ body { padding: 0; }
   #gatsby-invitation .is-animated .cinema-arrival { top: 22%; left: 18px; right: 18px; }
   #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { max-width: 290px; margin: 0 auto 24px; }
   #gatsby-invitation .cinema-arrival-note { max-width: 290px; margin-top: 20px; font-size: 14px; }
-  #gatsby-invitation .cinema-mansion img { object-position: 50% 58%; }
   #gatsby-invitation .is-animated .cinema-portrait { top: max(72px, 10svh); right: 50%; width: min(116vw, 65svh); transform: translateX(50%); }
   #gatsby-invitation .is-animated .cinema-welcome { left: 16px; right: 16px; top: auto; bottom: max(5svh, 24px); text-align: center; transform: translateY(var(--cinema-welcome-y, 26px)); }
   #gatsby-invitation .cinema-welcome h2 { font-size: clamp(72px, 19vw, 100px); }

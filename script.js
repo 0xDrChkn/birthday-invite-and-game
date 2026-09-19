@@ -2,22 +2,13 @@
   'use strict';
   const config = window.BIRTHDAY_CONFIG;
   const root = document.getElementById('gatsby-invitation');
-  const state = { language: config.appearance.defaultLanguage === 'nb' ? 'nb' : 'en', opened: false, section: 'evening', page: 0, selectedPhoto: null };
+  const state = { language: config.appearance.defaultLanguage === 'nb' ? 'nb' : 'en', page: 0, selectedPhoto: null };
   let lastReply = null;
   let lastContribution = null;
   const photos = config.photos || [];
   const pageCount = Math.ceil(photos.length / 3);
-  const opener = root.querySelector('.party-open');
-  const tabs = [...root.querySelectorAll('[data-section]')];
   const template = text => String(text ?? '').replace(/\{(name|fullName|age)\}/g, (_, key) => String(config.person[key]));
   const localized = value => template(typeof value === 'string' ? value : value?.[state.language] ?? value?.en ?? '');
-  function lines(element, values) {
-    element.replaceChildren();
-    values.forEach((value, index) => {
-      if (index) element.append(document.createElement('br'));
-      element.append(document.createTextNode(template(value)));
-    });
-  }
   function formatDate() {
     const locale = state.language === 'nb' ? 'nb-NO' : 'en-GB';
     const start = new Date(config.event.start);
@@ -28,50 +19,37 @@
   function render() {
     const isNb = state.language === 'nb';
     const copy = config.copy[state.language];
-    const hero = config.hero[state.language];
+    const story = config.story[state.language];
     root.lang = state.language;
     document.documentElement.lang = state.language;
-    document.title = template(hero.masthead);
+    document.title = template(config.hero[state.language].masthead);
     document.querySelector('meta[name="description"]').content = `${config.person.fullName} · ${formatDate()} · ${config.event.venue.city}`;
     root.dataset.direction = config.appearance.direction;
     root.dataset.ornament = config.appearance.ornament;
     root.setAttribute('aria-label', isNb ? `Bursdagsinvitasjon for ${config.person.name}` : `${config.person.name}’s birthday invitation`);
-    root.querySelector('.party-tabs').setAttribute('aria-label', isNb ? 'Invitasjonsdetaljer' : 'Invitation details');
-    root.querySelector('.party-permit').setAttribute('aria-label', isNb ? 'Mat og drikke' : 'Food and drinks');
-    root.querySelector('.party-album').setAttribute('aria-label', isNb ? `Bilder av ${config.person.name}` : `Photographs of ${config.person.name}`);
     root.querySelectorAll('[data-i18n]').forEach(element => { element.textContent = template(copy[element.dataset.i18n] ?? config.copy.en[element.dataset.i18n]); });
+    root.querySelectorAll('[data-story-copy]').forEach(element => { element.textContent = template(story[element.dataset.storyCopy]); });
     root.querySelectorAll('[data-language]').forEach(element => element.setAttribute('aria-pressed', String(element.dataset.language === state.language)));
-    root.querySelector('[data-masthead]').textContent = template(hero.masthead);
-    const heading = root.querySelector('[data-headline]');
-    heading.replaceChildren();
-    hero.headline.forEach(line => {
-      const span = document.createElement('span');
-      if (line.emphasis) { const em = document.createElement('em'); em.textContent = template(line.text); span.append(em); }
-      else span.textContent = template(line.text);
-      heading.append(span);
-    });
-    lines(root.querySelector('[data-deck]'), hero.deck);
-    root.querySelector('[data-signoff]').textContent = template(hero.signoff);
-    root.querySelector('[data-full-name]').textContent = config.person.fullName;
-    root.querySelector('[data-age]').textContent = config.person.age;
+    root.querySelector('[data-signoff]').textContent = template(config.hero[state.language].signoff);
     root.querySelector('[data-event-date]').textContent = formatDate();
     const venue = config.event.venue;
     root.querySelectorAll('[data-street]').forEach(el => { el.textContent = venue.street; });
     root.querySelectorAll('[data-town]').forEach(el => { el.textContent = `${venue.postalCode} ${venue.city}`; });
     root.querySelector('[data-country]').textContent = localized(venue.country);
     root.querySelector('[data-map-link]').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${venue.street}, ${venue.postalCode} ${venue.city}, ${venue.country.en}`)}`;
-    opener.setAttribute('aria-expanded', String(state.opened));
-    root.querySelector('[data-open-label]').textContent = isNb ? (state.opened ? 'Lukk detaljene' : 'Åpne invitasjonen') : (state.opened ? 'Close invitation details' : 'Open your invitation');
-    root.querySelector('.party-details').hidden = !state.opened;
-    tabs.forEach(button => {
-      const active = button.dataset.section === state.section;
-      button.setAttribute('aria-pressed', String(active));
-      document.getElementById(button.getAttribute('aria-controls')).hidden = !active;
+    root.querySelector('#dress-dialog').setAttribute('aria-label', story.dressAction);
+    root.querySelector('#food-dialog').setAttribute('aria-label', story.foodAction);
+    root.querySelector('#programme-dialog').setAttribute('aria-label', story.programmeAction);
+    root.querySelectorAll('[data-dialog-close]').forEach(button => button.setAttribute('aria-label', isNb ? 'Lukk' : 'Close'));
+    root.querySelector('#party-evidence').hidden = !lastReply;
+    if (lastReply) {
+      root.querySelector('#party-contributor').value = lastReply.name;
+      root.querySelector('[data-contributor-name]').textContent = lastReply.name;
+    }
+    root.querySelectorAll('#party-rsvp-form button[name="reply"]').forEach(button => {
+      button.setAttribute('aria-pressed', String(!!lastReply && (button.value === 'yes') === lastReply.accepted));
     });
-    const portrait = root.querySelector('[data-hero-photo]');
-    if (portrait.getAttribute('src') !== config.heroPhoto.src) portrait.src = config.heroPhoto.src;
-    portrait.alt = localized(config.heroPhoto.alt);
-    root.querySelector('.party-album').hidden = photos.length === 0;
+    root.querySelector('#party-memories').hidden = photos.length === 0;
     root.querySelectorAll('[data-memory]').forEach((button, slot) => {
       const photo = photos[state.page * 3 + slot];
       button.hidden = !photo;
@@ -98,9 +76,6 @@
     root.querySelector('[data-page-count]').textContent = `${String(state.page + 1).padStart(2,'0')} / ${String(pageCount).padStart(2,'0')}`;
     root.querySelector('[data-next-page]').textContent = isNb ? 'Flere minner →' : 'More memories →';
     root.querySelector('[data-close-photo]').textContent = isNb ? 'Tilbake til albumet' : 'Back to the album';
-    root.querySelector('#party-evening').setAttribute('aria-label', copy.eveningTab);
-    root.querySelector('#party-dress').setAttribute('aria-label', copy.dressTab);
-    root.querySelector('#party-location').setAttribute('aria-label', copy.locationTab);
     renderFeedback();
     window.dispatchEvent(new CustomEvent('birthday:language', {detail:{language:state.language}}));
   }
@@ -121,11 +96,15 @@
     // Keep validation feedback in the chosen language without changing entered data.
     validatePhotos();
   }
-  opener.addEventListener('click', () => { state.opened = !state.opened; render(); });
-  tabs.forEach(button => button.addEventListener('click', () => { state.section = button.dataset.section; render(); }));
   root.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.language)));
   window.addEventListener('birthday:request-language', event => setLanguage(event.detail?.language));
-  root.querySelector('[data-next-page]').addEventListener('click', () => { state.page = (state.page + 1) % pageCount; render(); });
+  root.querySelector('[data-next-page]').addEventListener('click', () => {
+    state.page = (state.page + 1) % pageCount;
+    render();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.querySelector('.party-collage').animate([{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}], {duration:480,easing:'ease-out'});
+    }
+  });
   root.querySelectorAll('[data-memory]').forEach(button => button.addEventListener('click', () => { state.selectedPhoto = state.page * 3 + Number(button.dataset.memory); render(); root.querySelector('[data-close-photo]').focus(); }));
   root.querySelector('[data-close-photo]').addEventListener('click', () => { const slot = state.selectedPhoto % 3; state.selectedPhoto = null; render(); root.querySelector(`[data-memory="${slot}"]`).focus(); });
   root.querySelector('#party-rsvp-form').addEventListener('submit', event => {
@@ -134,7 +113,11 @@
     if (!name) { root.querySelector('#party-guest-name').focus(); return; }
     const accepted = event.submitter?.value === 'yes';
     lastReply = { name, accepted };
-    renderFeedback();
+    render();
+    window.dispatchEvent(new CustomEvent('birthday:evidence'));
+    requestAnimationFrame(() => {
+      root.querySelector('#party-evidence').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start' });
+    });
   });
   const photoInput = root.querySelector('#party-photos');
   const photoPreview = root.querySelector('[data-photo-previews]');

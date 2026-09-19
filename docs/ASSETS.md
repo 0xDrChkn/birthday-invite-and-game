@@ -2,7 +2,8 @@
 
 Built-in image generation was used; no fallback CLI.
 
-- `assets/gatsby-mansion-open.jpg`: the current entrance image, with doors already open. See [the final prompt](MANSION-PROMPT.md).
+- `assets/gatsby-mansion-wide-open.jpg`: the single photograph used throughout the full-castle approach, zooming towards its real open doors before dissolving directly into Sara; see [the wide-image prompt](WIDE-MANSION-PROMPT.md).
+- `assets/gatsby-mansion-open.jpg`: unused earlier doorway close-up, retained as an alternate asset. See [its prompt](MANSION-PROMPT.md).
 - `assets/gatsby-mansion.jpg`: new cinematic mansion exterior for the scroll entrance, generated 19 September 2026 and converted to an optimized JPEG.
 - `assets/sara-gatsby-toast.jpg`: AI-created portrait from Sara’s supplied photos and the Gatsby toast pose reference. The other memory photographs are user supplied.
 

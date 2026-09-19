@@ -46,28 +46,6 @@ window.BIRTHDAY_CONFIG = {
   },
   "photos": [
     {
-      "src": "assets/memory-10-table-tennis.jpg",
-      "caption": {
-        "en": "Game face: activated",
-        "nb": "Kampfjes: aktivert"
-      },
-      "alt": {
-        "en": "{name} concentrating on a table-tennis shot in a red and yellow shirt",
-        "nb": "{name} konsentrerer seg om et bordtennisslag i en rød og gul trøye"
-      }
-    },
-    {
-      "src": "assets/memory-11-trophy.jpg",
-      "caption": {
-        "en": "A different kind of golden hour",
-        "nb": "Et gyllent øyeblikk"
-      },
-      "alt": {
-        "en": "{name} smiling and holding a trophy in sportswear",
-        "nb": "{name} smiler og holder et trofé i treningsklær"
-      }
-    },
-    {
       "src": "assets/memory-02.jpg",
       "caption": {
         "en": "Taking the scenic route",
@@ -164,6 +142,28 @@ window.BIRTHDAY_CONFIG = {
       "alt": {
         "en": "{name} dressed up holding an ice bucket",
         "nb": "{name} pyntet til fest med en isbøtte"
+      }
+    },
+    {
+      "src": "assets/memory-10-table-tennis.jpg",
+      "caption": {
+        "en": "Game face: activated",
+        "nb": "Kampfjes: aktivert"
+      },
+      "alt": {
+        "en": "{name} concentrating on a table-tennis shot in a red and yellow shirt",
+        "nb": "{name} konsentrerer seg om et bordtennisslag i en rød og gul trøye"
+      }
+    },
+    {
+      "src": "assets/memory-11-trophy.jpg",
+      "caption": {
+        "en": "A different kind of golden hour",
+        "nb": "Et gyllent øyeblikk"
+      },
+      "alt": {
+        "en": "{name} smiling and holding a trophy in sportswear",
+        "nb": "{name} smiler og holder et trofé i treningsklær"
       }
     }
   ],
@@ -310,6 +310,44 @@ window.BIRTHDAY_CONFIG = {
       "photosHint": "Opptil 3 bilder · maks 20 MB per bilde. Velg bilder du synes det er greit å vise på festen.",
       "contributeButton": "Forhåndsvis bidrag",
       "contributeNote": "Kun forhåndsvisning — historier og bilder blir på enheten din og sendes ikke inn ennå."
+    }
+  },
+  "story": {
+    "en": {
+      "edition": "Reliving your twenties · {name} turns {age}",
+      "whenKicker": "The invitation",
+      "whenTitle": "A night to remember.",
+      "whenIntro": "The Great Gatsby is calling. A little glamour, a little mischief, and our favourite people.",
+      "dressAction": "What to wear",
+      "foodAction": "Food & drinks",
+      "programmeAction": "The evening",
+      "toRsvp": "Now, about your grand entrance",
+      "rsvpKicker": "The guest list",
+      "rsvpTitle": "Who’s joining us?",
+      "rsvpIntro": "Your name. Your verdict. Your most convincing excuse, if you must.",
+      "browseAlbum": "Just here for the photographs? Explore the album →",
+      "evidenceKicker": "A little help with the surprise",
+      "from": "A contribution from",
+      "toAlbum": "Continue to the album",
+      "albumKicker": "The story so far"
+    },
+    "nb": {
+      "edition": "Tjueårene om igjen · {name} fyller {age}",
+      "whenKicker": "Invitasjonen",
+      "whenTitle": "En kveld å huske.",
+      "whenIntro": "The Great Gatsby kaller. Litt glamour, litt sprell og favorittmenneskene våre.",
+      "dressAction": "Hva skal jeg ha på?",
+      "foodAction": "Mat og drikke",
+      "programmeAction": "Kvelden",
+      "toRsvp": "Så var det din store entré",
+      "rsvpKicker": "Gjestelisten",
+      "rsvpTitle": "Hvem blir med?",
+      "rsvpIntro": "Ditt navn. Ditt svar. Din aller beste unnskyldning, om du må.",
+      "browseAlbum": "Bare her for bildene? Se albumet →",
+      "evidenceKicker": "Litt hjelp med overraskelsen",
+      "from": "Et bidrag fra",
+      "toAlbum": "Videre til albumet",
+      "albumKicker": "Historien så langt"
     }
   }
 };

@@ -40,7 +40,7 @@
   intro.innerHTML = `
     <div class="cinema-sticky">
       <div class="cinema-mansion" aria-hidden="true">
-        <img src="assets/gatsby-mansion-open.jpg" alt="" fetchpriority="high" decoding="async">
+        <img class="cinema-wide-shot" src="assets/gatsby-mansion-wide-open.jpg" alt="" fetchpriority="high" decoding="async">
       </div>
       <div class="cinema-vignette" aria-hidden="true"></div>
       <div class="cinema-dust" aria-hidden="true"></div>
@@ -54,7 +54,7 @@
       </div>
       <div class="cinema-arrival">
         <p class="cinema-eyebrow" data-cinema-copy="chapter"></p>
-        <h2 class="cinema-opening"><span data-cinema-opening="0"></span><em data-cinema-opening="1"></em></h2>
+        <h1 class="cinema-opening"><span data-cinema-opening="0"></span><em data-cinema-opening="1"></em></h1>
         <p class="cinema-arrival-note" data-cinema-copy="openingNote"></p>
       </div>
       <div class="cinema-guest-scene">
@@ -80,7 +80,7 @@
   const welcome = intro.querySelector('.cinema-welcome');
   const arrival = intro.querySelector('.cinema-arrival');
   const continueLink = intro.querySelector('.cinema-continue');
-  const frame = root.querySelector('.party-frame');
+  const frame = root.querySelector('#invitation');
 
   function translate(next) {
     language = next === 'nb' ? 'nb' : 'en';
@@ -146,14 +146,28 @@
       return;
     }
     const rect = intro.getBoundingClientRect();
-    const viewport = intro.querySelector('.cinema-sticky').offsetHeight;
+    const stage = intro.querySelector('.cinema-sticky');
+    const viewport = stage.offsetHeight;
+    const width = stage.clientWidth;
     const progress = clamp(-rect.top / Math.max(1, rect.height - viewport));
-    const approach = ease(ramp(progress, 0, .8));
-    const dissolve = ease(ramp(progress, .56, .84));
-    const welcomeIn = ease(ramp(progress, .7, .9));
+    // Fit the complete landscape photograph first, including on portrait screens.
+    // Track the real doorway through the letterboxing as the camera moves forward.
+    const imageAspect = 1672 / 941;
+    const photoWidth = Math.min(width, viewport * imageAspect);
+    const photoHeight = photoWidth / imageAspect;
+    const wideDoorY = (viewport - photoHeight) / 2 + photoHeight * .655;
+    const approach = ease(ramp(progress, .06, .80));
+    const finalZoom = Math.min(12, width * .65 / (photoWidth * .065));
+    const zoom = Math.pow(finalZoom, approach);
+    const cameraY = approach * (viewport * .53 - wideDoorY);
+    // One photograph throughout the approach, then a direct dissolve into Sara.
+    const dissolve = ease(ramp(progress, .70, .91));
+    const welcomeIn = ease(ramp(progress, .80, .96));
     const values = {
       '--cinema-progress': progress,
-      '--cinema-zoom': 1 + approach * 2.6,
+      '--cinema-zoom': zoom,
+      '--cinema-door-y': `${wideDoorY}px`,
+      '--cinema-camera-y': `${cameraY}px`,
       '--cinema-mansion-opacity': 1 - dissolve,
       '--cinema-arrival-opacity': 1 - ease(ramp(progress, .08, .31)),
       '--cinema-arrival-y': `${-ramp(progress, .06, .36) * 52}px`,
@@ -164,7 +178,7 @@
       '--cinema-cue-opacity': 1 - ramp(progress, .13, .3)
     };
     Object.entries(values).forEach(([key, value]) => intro.style.setProperty(key, value));
-    setWelcomeVisibility(progress >= .76);
+    setWelcomeVisibility(progress >= .85);
     arrival.setAttribute('aria-hidden', String(progress > .31));
   }
   function scheduleScene() {
@@ -183,15 +197,4 @@
   motion.addEventListener('change', setMotion);
   setMotion();
 
-  // Nothing is hidden while waiting for observation. Reveals are decorative only.
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        if (!motion.matches) entry.target.classList.add('cinema-revealed');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: .08 });
-    root.querySelectorAll('.party-masthead, .party-edition, .party-headline, .party-portrait, .party-honoree, .party-facts, .party-open, .party-rsvp, .party-permit, .party-contribute, .party-album, .party-signoff').forEach(section => observer.observe(section));
-  }
 })();

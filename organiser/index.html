@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Guest book · Organizer</title>
+  <link rel="stylesheet" href="organiser.css">
+  <script src="../event-config.js?v=20260919-copy3" defer></script>
+  <script src="../vendor/supabase.js" defer></script>
+  <script src="../submissions.js?v=20260919-submit" defer></script>
+  <script src="organiser.js" defer></script>
+</head>
+<body>
+  <main class="organiser">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Behind the scenes</p>
+        <h1>The guest book.</h1>
+        <p id="event-name" class="event-name">Birthday celebration</p>
+      </div>
+      <a class="invitation-link" href="../">View invitation <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <p id="page-status" class="status" role="status" aria-live="polite">Checking organizer access…</p>
+
+    <section id="setup" class="access-panel" hidden aria-labelledby="setup-title">
+      <p class="eyebrow">One last connection</p>
+      <h2 id="setup-title">Submissions aren’t connected yet.</h2>
+      <p>Connect the private submission service and create an organizer account before collecting replies. This page will show the event’s guest list once that setup is complete.</p>
+    </section>
+
+    <section id="login" class="access-panel" hidden aria-labelledby="login-title">
+      <p class="eyebrow">Organizer access</p>
+      <h2 id="login-title">Come behind the curtain.</h2>
+      <p>Sign in to see replies, read the stories, and collect the photographs.</p>
+      <form id="login-form">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="username" required maxlength="254">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button id="sign-in" class="button primary" type="submit">Sign in</button>
+      </form>
+      <p class="small-note">Only accounts granted organizer access can view submissions.</p>
+    </section>
+
+    <section id="dashboard" hidden aria-label="Event submissions">
+      <div class="account-bar">
+        <p>Signed in as <span id="account-email"></span></p>
+        <button id="sign-out" class="text-button" type="button">Sign out</button>
+      </div>
+
+      <dl class="totals" aria-label="Response totals">
+        <div><dt>Replies</dt><dd id="total-replies">—</dd></div>
+        <div><dt>Joining the party</dt><dd id="total-yes">—</dd></div>
+        <div><dt>Can’t make it</dt><dd id="total-no">—</dd></div>
+        <div><dt>Stories &amp; photos</dt><dd id="total-contributions">—</dd></div>
+      </dl>
+
+      <div class="list-heading">
+        <div>
+          <p class="eyebrow">The people who make the party</p>
+          <h2>Replies &amp; memories</h2>
+        </div>
+        <div class="list-actions">
+          <button id="refresh" class="button" type="button">Refresh</button>
+          <button id="export" class="button" type="button" disabled>Export all replies · CSV</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div>
+          <label for="search">Find a guest or story</label>
+          <input id="search" type="search" placeholder="Start typing…" autocomplete="off">
+        </div>
+        <div>
+          <label for="reply-filter">Show replies</label>
+          <select id="reply-filter">
+            <option value="all">Everyone</option>
+            <option value="yes">Joining the party</option>
+            <option value="no">Can’t make it</option>
+            <option value="contributions">With stories or photos</option>
+          </select>
+        </div>
+      </div>
+
+      <p id="list-summary" class="list-summary" role="status" aria-live="polite"></p>
+      <div id="submissions" class="submissions" aria-busy="false"></div>
+      <p class="small-note privacy-note">Guest stories and photos stay in this private area. Photo links expire; refresh to get new ones. Downloaded files and exports contain guest information.</p>
+    </section>
+    <noscript><p class="access-panel">JavaScript is required to sign in and view private submissions.</p></noscript>
+    <footer>For the people planning the night.</footer>
+  </main>
+</body>
+</html>

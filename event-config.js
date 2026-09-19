@@ -27,6 +27,10 @@ window.BIRTHDAY_CONFIG = {
     "ornament": "deco",
     "defaultLanguage": "en"
   },
+  "submissions": {
+    "url": "",
+    "publishableKey": ""
+  },
   "music": {
     "src": "",
     "volume": 0.3,
@@ -228,9 +232,9 @@ window.BIRTHDAY_CONFIG = {
       "guestName": "Your full name",
       "rsvpYes": "I will be there",
       "rsvpNo": "Got better stuff to do",
-      "rsvpNote": "RSVP preview — replies aren’t saved yet.",
-      "food": "We’ll provide food and some drinks to get the evening started.",
-      "byob": "Bring whatever else you’d like to drink. The front door is fine.",
+      "rsvpNote": "Your reply is sent privately to the organiser.",
+      "food": "We’ll provide the food.",
+      "byob": "You’re encouraged to smuggle in your own drinks to keep the evening going. In defiance of the Prohibition authorities, naturally.",
       "contributeKicker": "A little help from {name}’s favourite people",
       "contributeTitle": "We need your evidence.",
       "contributeIntro": "Your favourite {name} story. Your three best photos. Help us make a birthday collage and a game to remember.",
@@ -239,14 +243,14 @@ window.BIRTHDAY_CONFIG = {
       "storyHint": "A legendary night, a classic {name} quote, or a little moment that deserves a comeback. Keep it affectionate.",
       "photosLabel": "Your top three photos",
       "photosHint": "Up to 3 photos · maximum 20 MB each. Choose photos you’re happy to show at the party.",
-      "contributeButton": "Preview contribution",
-      "contributeNote": "Preview only — stories and photos stay on your device and are not submitted yet.",
+      "contributeButton": "Send your story & photos",
+      "contributeNote": "Your story and photos go privately to the organiser and may be used in the birthday collage or game.",
       "albumKicker": "The evidence, so far",
       "albumTitle": "The road to {age}.",
       "albumHint": "Tap a photograph. There’s always a story.",
       "drinksKicker": "Food & drinks",
-      "drinksTitle": "No smuggling required.",
-      "drinksHistory": "Norway banned the sale of spirits from 1916 to 1927. We’re bringing back the twenties, but leaving that part in the past."
+      "drinksTitle": "The bootlegger’s bar.",
+      "drinksHistory": "Norway banned the sale of spirits from 1916 to 1927. For tonight’s operation, our “bootlegger’s licence” has secured a limited stash of champagne and wine."
     },
     "nb": {
       "theme": "En kveld i ekte Gatsby-stil",
@@ -265,8 +269,8 @@ window.BIRTHDAY_CONFIG = {
       "locationTitle": "Byens minst hemmelige smuglerbar.",
       "locationBody": "Passord er ikke nødvendig. Det holder å kjenne bursdagsbarnet.",
       "map": "Finn adressen i Google Maps ↗",
-      "food": "Vi byr på mat og litt drikke for å få kvelden i gang.",
-      "byob": "Ta med det du vil drikke utover det. Du kan bruke hovedinngangen.",
+      "food": "Vi står for maten.",
+      "byob": "Smugle gjerne med deg egen drikke for å holde kvelden i gang. Til forbudstidens myndigheters store fortvilelse, selvfølgelig.",
       "albumKicker": "Bevismaterialet så langt",
       "albumTitle": "Veien til {age}.",
       "albumHint": "Trykk på et bilde. Det finnes alltid en historie.",
@@ -274,7 +278,7 @@ window.BIRTHDAY_CONFIG = {
       "guestName": "Ditt fulle navn",
       "rsvpYes": "Jeg kommer",
       "rsvpNo": "Har bedre ting å gjøre",
-      "rsvpNote": "Forhåndsvisning av påmelding — svarene lagres ikke ennå.",
+      "rsvpNote": "Svaret ditt sendes privat til arrangøren.",
       "contributeKicker": "Litt hjelp fra favorittmenneskene til {name}",
       "contributeTitle": "Vi trenger bevismateriale.",
       "contributeIntro": "Din beste {name}-historie. Dine tre beste bilder. Hjelp oss å lage en bursdagscollage og en quiz å huske.",
@@ -283,11 +287,11 @@ window.BIRTHDAY_CONFIG = {
       "storyHint": "En legendarisk kveld, et klassisk {name}-sitat eller et lite øyeblikk som fortjener et gjensyn. Med kjærlighet, selvfølgelig.",
       "photosLabel": "Dine tre beste bilder",
       "photosHint": "Opptil 3 bilder · maks 20 MB per bilde. Velg bilder du synes det er greit å vise på festen.",
-      "contributeButton": "Forhåndsvis bidrag",
-      "contributeNote": "Kun forhåndsvisning — historier og bilder blir på enheten din og sendes ikke inn ennå.",
+      "contributeButton": "Send historie og bilder",
+      "contributeNote": "Historien og bildene sendes privat til arrangøren og kan brukes i bursdagscollagen eller quizen.",
       "drinksKicker": "Mat og drikke",
-      "drinksTitle": "Du slipper å smugle.",
-      "drinksHistory": "I Norge var salg av brennevin forbudt fra 1916 til 1927. Vi henter frem tjueårene igjen, men lar forbudet bli i historiebøkene."
+      "drinksTitle": "Smuglerbaren.",
+      "drinksHistory": "I Norge var salg av brennevin forbudt fra 1916 til 1927. Takket være kveldens «smuglerbevilling» har vi fått tak i en begrenset forsyning av champagne og vin."
     }
   },
   "story": {

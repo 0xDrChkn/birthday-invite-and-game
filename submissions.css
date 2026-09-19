@@ -1,0 +1,26 @@
+/* Submission feedback stays visible while the surrounding chapter animates. */
+#gatsby-invitation #party-rsvp-form button:disabled,
+#gatsby-invitation #party-contribution-form button:disabled {
+  opacity: .58;
+  cursor: not-allowed;
+}
+#gatsby-invitation form[aria-busy='true'] button:disabled {
+  cursor: progress;
+}
+#gatsby-invitation form[aria-busy='true'] input,
+#gatsby-invitation form[aria-busy='true'] textarea {
+  opacity: .72;
+}
+#gatsby-invitation [data-rsvp-status][data-status='error'],
+#gatsby-invitation [data-rsvp-status][data-status='restore-error'],
+#gatsby-invitation [data-contribution-status][data-status='error'] {
+  color: #f0c39e;
+}
+#gatsby-invitation [data-rsvp-status][data-status='success'],
+#gatsby-invitation [data-contribution-status][data-status='success'] {
+  color: var(--party-gold);
+}
+#gatsby-invitation .party-photo-previews figure {
+  padding: 9px;
+  border: 1px solid var(--party-line);
+}

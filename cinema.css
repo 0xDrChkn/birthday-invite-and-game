@@ -1,0 +1,95 @@
+/* Full-bleed arrival, followed by the intimate printed invitation. */
+body { padding: 0; }
+#gatsby-invitation { max-width: none; overflow: clip; background: #101211; }
+#gatsby-invitation .party-frame { width: calc(100% - 48px); max-width: 780px; margin: 64px auto 48px; scroll-margin-top: 24px; }
+#gatsby-invitation .party-frame:focus { outline: none; }
+#gatsby-invitation .party-sound-floating { position: fixed; z-index: 60; left: max(18px, env(safe-area-inset-left)); top: calc(max(18px, env(safe-area-inset-top)) + 56px); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; max-width: calc(100vw - 36px); padding: 9px 13px; border: 1px solid #d3b58055; border-radius: 0; color: #ead6ad; background: #101413db; backdrop-filter: blur(12px); font: 400 11px/1.4 'Jost', sans-serif; letter-spacing: .06em; cursor: pointer; }
+#gatsby-invitation .party-sound-floating:hover { background: #1c2421; border-color: #d3b580; }
+#gatsby-invitation .cinema-intro { --cinema-gold: #d3b580; position: relative; color: #f7efdf; background: #080e10; isolation: isolate; }
+#gatsby-invitation .cinema-sticky { position: relative; min-height: 100svh; padding: 92px 24px 46px; overflow: hidden; isolation: isolate; }
+#gatsby-invitation .cinema-mansion { position: absolute; inset: 0; z-index: -3; opacity: .2; overflow: hidden; background: #101c1b; }
+#gatsby-invitation .cinema-mansion img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 50% 58%; transform-origin: 50% 58%; }
+#gatsby-invitation .cinema-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(180deg, #050b10a8, transparent 45%, #050a0f66 65%, #080d10ed), radial-gradient(ellipse at 50% 42%, transparent 20%, #050a1066 85%); }
+#gatsby-invitation .cinema-dust { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .36; background-image: radial-gradient(circle at 11% 62%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 29% 77%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 74% 45%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 89% 70%, #ead59a 0 1px, transparent 2px), radial-gradient(circle at 67% 87%, #ead59a 0 1px, transparent 2px); }
+#gatsby-invitation .cinema-nav { position: absolute; z-index: 20; top: max(18px, env(safe-area-inset-top)); left: clamp(18px, 4vw, 60px); right: clamp(18px, 4vw, 60px); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+#gatsby-invitation .cinema-skip, #gatsby-invitation .cinema-languages button { min-height: 44px; color: #f7efdf; font-size: 11px; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; text-shadow: 0 2px 12px #000; }
+#gatsby-invitation .cinema-skip { display: inline-flex; align-items: center; gap: 10px; padding: 6px 0; }
+#gatsby-invitation .cinema-skip span:last-child { font-size: 18px; color: var(--cinema-gold); }
+#gatsby-invitation .cinema-languages { display: flex; align-items: center; gap: 4px; color: #d3b5807a; flex-shrink: 0; }
+#gatsby-invitation .cinema-languages button { border: 0; background: transparent; min-width: 38px; padding: 8px 6px; cursor: pointer; opacity: .62; }
+#gatsby-invitation .cinema-languages button[aria-pressed='true'] { color: var(--cinema-gold); opacity: 1; text-decoration: underline; text-underline-offset: 7px; }
+#gatsby-invitation .cinema-arrival { display: none; }
+#gatsby-invitation .cinema-eyebrow { font: 400 11px/1.7 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .25em; color: var(--cinema-gold); }
+#gatsby-invitation .cinema-opening { font: 400 clamp(68px, 9.2vw, 140px)/.88 'Cormorant Garamond', Georgia, serif; letter-spacing: -.04em; text-shadow: 0 3px 44px #000a; }
+#gatsby-invitation .cinema-opening span, #gatsby-invitation .cinema-opening em { display: block; }
+#gatsby-invitation .cinema-opening em { font-weight: 400; color: #e2c595; }
+#gatsby-invitation .cinema-arrival-note { margin: 24px auto 0; font: 400 17px/1.6 'Jost', sans-serif; color: #e5e1d9; }
+#gatsby-invitation .cinema-guest-scene { position: relative; isolation: isolate; }
+#gatsby-invitation .cinema-guest-backdrop { position: absolute; z-index: -1; inset: -100px -60px; overflow: hidden; pointer-events: none; }
+#gatsby-invitation .cinema-guest-backdrop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: blur(36px) brightness(.28) saturate(.75); transform: scale(1.1); }
+#gatsby-invitation .cinema-guest-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, #080e10, transparent 35%), linear-gradient(90deg, #080e1066, transparent 70%); }
+#gatsby-invitation .cinema-portrait { display: block; position: relative; width: min(90vw, 520px); height: auto; aspect-ratio: 1; margin: 0 auto; object-fit: contain; object-position: center; -webkit-mask-image: radial-gradient(ellipse 66% 68% at 50% 43%, #000 50%, transparent 85%); mask-image: radial-gradient(ellipse 66% 68% at 50% 43%, #000 50%, transparent 85%); }
+#gatsby-invitation .cinema-welcome { position: relative; z-index: 8; max-width: 900px; margin: 28px auto 0; text-align: center; }
+#gatsby-invitation .cinema-welcome h2 { font: 400 clamp(82px, 10vw, 164px)/.9 'Cormorant Garamond', Georgia, serif; letter-spacing: -.045em; margin-top: 14px; text-shadow: 0 2px 30px #000; overflow-wrap: anywhere; }
+#gatsby-invitation .cinema-welcome-note { margin: 14px auto 0; color: #e4dccf; font: 400 16px/1.6 'Jost', sans-serif; }
+#gatsby-invitation .cinema-continue { display: inline-flex; align-items: center; justify-content: center; gap: 26px; min-height: 48px; margin-top: 22px; padding: 11px 1px; border-bottom: 1px solid #d3b580a6; font: 400 12px/1.4 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .18em; color: #e2c595; text-decoration: none; }
+#gatsby-invitation .cinema-continue:hover, #gatsby-invitation .cinema-skip:hover { color: #fff8e5; }
+#gatsby-invitation .cinema-continue span:last-child { font-size: 22px; }
+#gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none; }
+
+/* Variables are written once per animation frame; scrolling remains native. */
+#gatsby-invitation .cinema-intro.is-animated { height: 250svh; }
+#gatsby-invitation .is-animated .cinema-sticky { position: sticky; top: 0; height: 100svh; min-height: 0; padding: 0; }
+#gatsby-invitation .is-animated .cinema-mansion { opacity: var(--cinema-mansion-opacity, 1); }
+#gatsby-invitation .is-animated .cinema-mansion img { transform: scale(var(--cinema-zoom, 1)); will-change: transform; }
+#gatsby-invitation .is-animated .cinema-arrival { display: block; position: absolute; z-index: 7; top: 21%; left: 24px; right: 24px; text-align: center; opacity: var(--cinema-arrival-opacity, 1); transform: translateY(var(--cinema-arrival-y, 0px)); pointer-events: none; }
+#gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { margin-bottom: 30px; }
+#gatsby-invitation .is-animated .cinema-guest-scene { position: absolute; inset: 0; z-index: 1; opacity: var(--cinema-guest-opacity, 0); transform: scale(var(--cinema-guest-zoom, 1.04)); }
+#gatsby-invitation .is-animated .cinema-guest-backdrop { inset: -50px; }
+#gatsby-invitation .is-animated .cinema-portrait { position: absolute; top: 50%; right: 4vw; width: min(80svh, 64vw, 900px); height: auto; margin: 0; transform: translateY(-50%); }
+#gatsby-invitation .is-animated .cinema-welcome { position: absolute; left: clamp(24px, 8vw, 128px); right: 50%; top: 51%; margin: 0; text-align: left; opacity: var(--cinema-welcome-opacity, 0); transform: translateY(calc(-50% + var(--cinema-welcome-y, 26px))); }
+#gatsby-invitation .is-animated .cinema-scroll-cue { display: flex; flex-direction: column; align-items: center; gap: 15px; position: absolute; left: 24px; right: 24px; bottom: 24px; z-index: 8; opacity: var(--cinema-cue-opacity, 1); pointer-events: none; font: 400 10px/1.5 'Jost', sans-serif; text-transform: uppercase; letter-spacing: .22em; color: #eee4d2; }
+#gatsby-invitation .cinema-scroll-line { display: block; width: 1px; height: 48px; background: linear-gradient(#d3b580, #d3b58000); }
+#gatsby-invitation .is-animated .cinema-progress { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: #d3b58020; }
+#gatsby-invitation .cinema-progress span { display: block; width: 100%; height: 100%; background: #d3b58099; transform-origin: left; transform: scaleX(var(--cinema-progress, 0)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  #gatsby-invitation .cinema-dust { animation: cinema-drift 16s ease-in-out infinite alternate; }
+  #gatsby-invitation .cinema-revealed { animation: cinema-section-arrives 800ms cubic-bezier(.2,.65,.2,1) both; }
+  #gatsby-invitation .party-portrait.cinema-revealed { animation-delay: 100ms; }
+  #gatsby-invitation .cinema-revealed:focus-within, #gatsby-invitation .cinema-revealed:focus { animation: none; opacity: 1; transform: none; }
+  @keyframes cinema-drift { to { transform: translate3d(0,-22px,0); opacity: .65; } }
+  @keyframes cinema-section-arrives { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (max-width: 700px) {
+  #gatsby-invitation .cinema-intro.is-animated { height: 210svh; }
+  #gatsby-invitation .cinema-nav { left: 18px; right: 14px; gap: 12px; }
+  #gatsby-invitation .cinema-skip { font-size: 9px; letter-spacing: .08em; }
+  #gatsby-invitation .cinema-eyebrow { font-size: 10px; letter-spacing: .16em; }
+  #gatsby-invitation .cinema-opening { font-size: clamp(57px, 12vw, 84px); line-height: .95; }
+  #gatsby-invitation .is-animated .cinema-arrival { top: 22%; left: 18px; right: 18px; }
+  #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { max-width: 290px; margin: 0 auto 24px; }
+  #gatsby-invitation .cinema-arrival-note { max-width: 290px; margin-top: 20px; font-size: 14px; }
+  #gatsby-invitation .cinema-mansion img { object-position: 50% 58%; }
+  #gatsby-invitation .is-animated .cinema-portrait { top: max(72px, 10svh); right: 50%; width: min(116vw, 65svh); transform: translateX(50%); }
+  #gatsby-invitation .is-animated .cinema-welcome { left: 16px; right: 16px; top: auto; bottom: max(5svh, 24px); text-align: center; transform: translateY(var(--cinema-welcome-y, 26px)); }
+  #gatsby-invitation .cinema-welcome h2 { font-size: clamp(72px, 19vw, 100px); }
+  #gatsby-invitation .cinema-welcome-note { font-size: 14px; max-width: 300px; margin-top: 11px; }
+  #gatsby-invitation .cinema-continue { margin-top: 15px; font-size: 10px; letter-spacing: .13em; gap: 20px; }
+  #gatsby-invitation .party-frame { width: calc(100% - 24px); margin-top: 36px; }
+}
+@media (max-height: 560px) and (min-width: 701px) {
+  #gatsby-invitation .is-animated .cinema-arrival { top: 19%; }
+  #gatsby-invitation .cinema-opening { font-size: 80px; }
+  #gatsby-invitation .is-animated .cinema-arrival .cinema-eyebrow { margin-bottom: 16px; }
+  #gatsby-invitation .cinema-arrival-note { margin-top: 15px; }
+  #gatsby-invitation .is-animated .cinema-welcome { top: 53%; }
+  #gatsby-invitation .cinema-welcome h2 { font-size: 90px; }
+  #gatsby-invitation .cinema-continue { margin-top: 10px; }
+  #gatsby-invitation .cinema-scroll-line { height: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #gatsby-invitation .cinema-intro { height: auto !important; }
+  #gatsby-invitation .cinema-dust, #gatsby-invitation .cinema-scroll-cue, #gatsby-invitation .cinema-progress { display: none !important; }
+  #gatsby-invitation .cinema-revealed { animation: none; }
+}

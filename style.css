@@ -1,0 +1,233 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500&display=swap');
+#gatsby-invitation {
+  --party-bg: #101211; --party-ink: #f3ead7; --party-gold: #cfad70;
+  --party-muted: #c2bbab; --party-line: #5c5039; --party-panel: #1a1e1b;
+  font-family: 'Jost', sans-serif; color: var(--party-ink); background: var(--party-bg);
+  width: 100%; position: relative; isolation: isolate; color-scheme: dark;
+}
+#gatsby-invitation, #gatsby-invitation * { box-sizing: border-box; }
+#gatsby-invitation button { font: inherit; }
+#gatsby-invitation [hidden] { display: none !important; }
+#gatsby-invitation p, #gatsby-invitation h1, #gatsby-invitation h2, #gatsby-invitation h3, #gatsby-invitation h4 { margin: 0; }
+#gatsby-invitation .party-frame { position: relative; padding: 32px 40px 28px; border: 1px solid var(--party-line); }
+#gatsby-invitation .party-frame::before { content: ''; position: absolute; inset: 9px; border: 1px solid var(--party-line); pointer-events: none; opacity: .65; }
+#gatsby-invitation .party-masthead { display: flex; align-items: center; gap: 18px; color: var(--party-gold); text-align: center; }
+#gatsby-invitation .party-masthead::before, #gatsby-invitation .party-masthead::after { content: ''; height: 1px; background: var(--party-line); flex: 1; }
+#gatsby-invitation .party-kicker { font-size: 12px; font-weight: 400; letter-spacing: .22em; text-transform: uppercase; line-height: 1.6; }
+#gatsby-invitation .party-edition { display: flex; justify-content: space-between; gap: 16px; margin-top: 28px; font-size: 12px; color: var(--party-muted); letter-spacing: .13em; text-transform: uppercase; }
+#gatsby-invitation .party-hero { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: center; gap: 18px; padding: 42px 0 34px; }
+#gatsby-invitation .party-headline { min-width: 0; }
+#gatsby-invitation .party-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(62px, 10.3vw, 92px); font-weight: 400; line-height: .92; letter-spacing: -.045em; position: relative; z-index: 2; }
+#gatsby-invitation .party-title span { display: block; }
+#gatsby-invitation .party-title em { color: var(--party-gold); font-weight: 400; }
+#gatsby-invitation .party-deck { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; line-height: 1.25; color: var(--party-muted); max-width: 260px; margin-top: 24px; }
+#gatsby-invitation .party-portrait { min-width: 0; aspect-ratio: .77; position: relative; border-radius: 48% 48% 0 0; border: 1px solid var(--party-gold); padding: 10px; background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--party-gold) 14%, var(--party-bg)), var(--party-bg) 70%); }
+#gatsby-invitation .party-portrait::before { content: ''; position: absolute; inset: 10px; border-radius: inherit; border: 1px solid var(--party-line); }
+#gatsby-invitation .party-portrait-inner { position: absolute; inset: 28px 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+#gatsby-invitation .party-star { color: var(--party-gold); font-size: 24px; font-family: Georgia, serif; }
+#gatsby-invitation .party-thirty { font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(104px, 20vw, 178px); font-weight: 400; line-height: 1.05; color: var(--party-gold); letter-spacing: -.09em; padding-right: .09em; }
+#gatsby-invitation .party-portrait-label { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--party-muted); line-height: 1.8; }
+#gatsby-invitation .party-portrait-note { display: block; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 17px; font-style: italic; text-transform: none; letter-spacing: 0; }
+#gatsby-invitation .party-diamond { width: 8px; height: 8px; border: 1px solid var(--party-gold); transform: rotate(45deg); margin: 18px auto 0; }
+#gatsby-invitation .party-honoree { text-align: center; border-top: 1px solid var(--party-line); padding: 25px 0 22px; }
+#gatsby-invitation .party-honoree .party-kicker { color: var(--party-gold); }
+#gatsby-invitation .party-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 44px; line-height: 1.2; letter-spacing: .06em; margin: 6px 0 10px; font-weight: 400; }
+#gatsby-invitation .party-line { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 21px; font-style: italic; line-height: 1.35; color: var(--party-muted); }
+#gatsby-invitation .party-facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--party-line); border-bottom: 1px solid var(--party-line); padding: 19px 0; text-align: center; }
+#gatsby-invitation .party-fact + .party-fact { border-left: 1px solid var(--party-line); }
+#gatsby-invitation .party-fact .party-kicker { color: var(--party-gold); font-size: 11px; margin-bottom: 5px; letter-spacing: .18em; }
+#gatsby-invitation .party-fact-value { font-size: 16px; line-height: 1.6; }
+#gatsby-invitation .party-open { display: flex; align-items: center; justify-content: center; gap: 14px; width: 100%; padding: 16px 18px; min-height: 54px; margin-top: 24px; border: 1px solid var(--party-gold); background: var(--party-gold); color: var(--party-bg); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .17em; transition: background .2s, color .2s; }
+#gatsby-invitation .party-open:hover { background: var(--party-ink); }
+#gatsby-invitation .party-open i { width: 16px; height: 16px; }
+#gatsby-invitation .party-signoff { text-align: center; color: var(--party-muted); font-size: 11px; letter-spacing: .17em; text-transform: uppercase; margin-top: 21px; }
+#gatsby-invitation .party-details { margin-top: 28px; padding-top: 6px; }
+#gatsby-invitation .party-tabs { display: flex; border-bottom: 1px solid var(--party-line); gap: 12px; }
+#gatsby-invitation .party-tab { padding: 12px 0; flex: 1; background: transparent; color: var(--party-muted); border: 0; border-bottom: 2px solid transparent; font-size: 14px; min-height: 44px; }
+#gatsby-invitation .party-tab[aria-pressed='true'] { border-bottom-color: var(--party-gold); color: var(--party-gold); }
+#gatsby-invitation .party-section { padding: 25px 0 8px; }
+#gatsby-invitation .party-section h3 { font: 400 31px/1.2 'Cormorant Garamond', Georgia, serif; margin-bottom: 10px; }
+#gatsby-invitation .party-section p { font-size: 16px; line-height: 1.65; color: var(--party-muted); }
+#gatsby-invitation .party-program { list-style: none; margin: 20px 0 0; padding: 0; }
+#gatsby-invitation .party-program li { display: grid; grid-template-columns: 34px 1fr; gap: 15px; padding: 14px 0; border-top: 1px solid var(--party-line); }
+#gatsby-invitation .party-program-number { font: italic 24px/1.4 'Cormorant Garamond', Georgia, serif; color: var(--party-gold); }
+#gatsby-invitation .party-program-title { font-size: 16px; font-weight: 400; }
+#gatsby-invitation .party-program li p { font-size: 14px; line-height: 1.5; margin-top: 3px; }
+#gatsby-invitation .party-dress-words { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+#gatsby-invitation .party-dress-words span { padding: 7px 12px; color: var(--party-gold); border: 1px solid var(--party-line); font-size: 14px; }
+#gatsby-invitation .party-address { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; line-height: 1.3; margin: 22px 0 5px; font-style: normal; }
+#gatsby-invitation .party-location-note { margin-top: 18px; }
+#gatsby-invitation[data-direction='speakeasy'] { --party-bg: #092b25; --party-panel: #113b31; --party-gold: #e4bc78; --party-line: #557061; --party-ink: #fbecd6; --party-muted: #c8d6c8; }
+#gatsby-invitation[data-direction='speakeasy'] .party-hero { grid-template-columns: 1fr 1.12fr; }
+#gatsby-invitation[data-direction='speakeasy'] .party-portrait { grid-column: 1; grid-row: 1; margin-right: 16px; border-radius: 48% 48% 48% 48%; }
+#gatsby-invitation[data-direction='speakeasy'] .party-headline { grid-column: 2; grid-row: 1; }
+#gatsby-invitation[data-direction='speakeasy'] .party-title { font-size: clamp(55px, 9vw, 76px); }
+#gatsby-invitation[data-direction='champagne'] { --party-bg: #f3e7cf; --party-panel: #e8d7b6; --party-gold: #795322; --party-line: #b5a17c; --party-ink: #30251d; --party-muted: #675749; color-scheme: light; }
+#gatsby-invitation[data-direction='champagne'] .party-hero { display: flex; flex-direction: column-reverse; text-align: center; gap: 22px; padding-top: 28px; }
+#gatsby-invitation[data-direction='champagne'] .party-portrait { width: 170px; aspect-ratio: 1; border-radius: 50%; }
+#gatsby-invitation[data-direction='champagne'] .party-portrait-inner { inset: 15px; }
+#gatsby-invitation[data-direction='champagne'] .party-thirty { font-size: 82px; line-height: 1; }
+#gatsby-invitation[data-direction='champagne'] .party-star, #gatsby-invitation[data-direction='champagne'] .party-diamond, #gatsby-invitation[data-direction='champagne'] .party-portrait-note { display: none; }
+#gatsby-invitation[data-direction='champagne'] .party-portrait-label { font-size: 10px; letter-spacing: .08em; }
+#gatsby-invitation[data-direction='champagne'] .party-title { font-size: clamp(56px, 9.5vw, 76px); }
+#gatsby-invitation[data-direction='champagne'] .party-title span { display: inline; }
+#gatsby-invitation[data-direction='champagne'] .party-title span + span::before { content: ' '; }
+#gatsby-invitation[data-direction='champagne'] .party-deck { max-width: 410px; margin: 15px auto 0; }
+#gatsby-invitation[data-ornament='quiet'] .party-frame::before, #gatsby-invitation[data-ornament='quiet'] .party-diamond, #gatsby-invitation[data-ornament='quiet'] .party-star { visibility: hidden; }
+@media (max-width: 520px) {
+  #gatsby-invitation .party-frame { padding: 28px 24px 26px; }
+  #gatsby-invitation .party-masthead { gap: 10px; }
+  #gatsby-invitation .party-masthead .party-kicker { font-size: 10px; letter-spacing: .16em; }
+  #gatsby-invitation .party-edition { font-size: 10px; gap: 10px; letter-spacing: .07em; }
+  #gatsby-invitation .party-hero { padding: 32px 0 28px; gap: 12px; }
+  #gatsby-invitation .party-title { font-size: clamp(49px, 11vw, 65px); }
+  #gatsby-invitation .party-deck { font-size: 18px; margin-top: 18px; }
+  #gatsby-invitation .party-thirty { font-size: clamp(78px, 23vw, 115px); }
+  #gatsby-invitation .party-portrait { aspect-ratio: .66; padding: 6px; }
+  #gatsby-invitation .party-portrait::before { inset: 6px; }
+  #gatsby-invitation .party-portrait-inner { inset: 16px 6px; }
+  #gatsby-invitation .party-portrait-label { font-size: 9px; letter-spacing: .08em; }
+  #gatsby-invitation .party-portrait-note { font-size: 13px; }
+  #gatsby-invitation .party-diamond { margin-top: 12px; width: 6px; height: 6px; }
+  #gatsby-invitation .party-name { font-size: 35px; }
+  #gatsby-invitation .party-line { font-size: 19px; }
+  #gatsby-invitation .party-facts { gap: 10px; }
+  #gatsby-invitation .party-fact-value { font-size: 14px; }
+  #gatsby-invitation .party-fact + .party-fact { padding-left: 10px; }
+  #gatsby-invitation .party-fact .party-kicker { font-size: 9px; }
+  #gatsby-invitation .party-open { font-size: 11px; letter-spacing: .12em; }
+  #gatsby-invitation .party-signoff { font-size: 10px; }
+  #gatsby-invitation[data-direction='speakeasy'] .party-title { font-size: clamp(43px, 10vw, 57px); }
+  #gatsby-invitation[data-direction='speakeasy'] .party-portrait { margin-right: 0; }
+  #gatsby-invitation[data-direction='champagne'] .party-title { font-size: 55px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #gatsby-invitation .party-details:not([hidden]) { animation: party-reveal .45s ease-out both; }
+  @keyframes party-reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+}
+#gatsby-invitation .party-language { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 16px; }
+#gatsby-invitation .party-language button { min-height: 36px; padding: 6px 10px; border: 1px solid transparent; background: transparent; color: var(--party-muted); font-size: 12px; }
+#gatsby-invitation .party-language button[aria-pressed='true'] { border-color: var(--party-line); color: var(--party-gold); }
+#gatsby-invitation .party-topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+#gatsby-invitation .party-topbar .party-language { margin-bottom: 0; }
+#gatsby-invitation .party-music-toggle { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 6px 0; border: 0; background: transparent; color: var(--party-gold); font-size: 13px; }
+#gatsby-invitation .party-music-toggle > span:first-child { font-size: 22px; line-height: 1; }
+#gatsby-invitation .party-portrait { overflow: hidden; }
+#gatsby-invitation .party-portrait::before { z-index: 2; pointer-events: none; border-color: #cfad70; }
+#gatsby-invitation .party-hero-photo { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; }
+#gatsby-invitation .party-age { position: absolute; bottom: 12px; left: 12px; color: #f3ead7; text-shadow: 0 2px 12px #000; font: 400 86px/.9 'Cormorant Garamond', Georgia, serif; }
+#gatsby-invitation .party-name { font-size: 37px; letter-spacing: .015em; }
+#gatsby-invitation .party-permit { margin: 30px 0 6px; padding: 23px; border: 1px solid var(--party-line); background: var(--party-panel); position: relative; }
+#gatsby-invitation .party-permit-head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 18px; justify-content: space-between; }
+#gatsby-invitation .party-permit-head > div:first-child { flex: 1 1 220px; min-width: 0; }
+#gatsby-invitation .party-permit .party-kicker { color: var(--party-gold); letter-spacing: .1em; font-size: 10px; }
+#gatsby-invitation .party-permit h3 { font: 400 31px/1.1 'Cormorant Garamond', Georgia, serif; margin-top: 8px; }
+#gatsby-invitation .party-stamp { border: 2px solid var(--party-gold); color: var(--party-gold); font-size: 11px; line-height: 1.6; letter-spacing: .09em; padding: 8px 12px; transform: rotate(7deg); flex-shrink: 0; text-align: center; }
+#gatsby-invitation .party-permit p.party-permit-copy { font-size: 15px; line-height: 1.65; margin-top: 15px; color: var(--party-muted); }
+#gatsby-invitation .party-permit strong { color: var(--party-ink); font-weight: 500; }
+#gatsby-invitation .party-permit .party-fineprint { color: var(--party-gold); font-size: 13px; line-height: 1.6; margin-top: 12px; font-style: italic; }
+#gatsby-invitation .party-album { margin-top: 36px; border-top: 1px solid var(--party-line); padding-top: 28px; }
+#gatsby-invitation .party-album-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+#gatsby-invitation .party-album .party-kicker { color: var(--party-gold); font-size: 10px; }
+#gatsby-invitation .party-album h3 { font: 400 33px/1.15 'Cormorant Garamond', Georgia, serif; margin-top: 7px; }
+#gatsby-invitation .party-paging { color: var(--party-muted); white-space: nowrap; font-size: 12px; padding-bottom: 4px; }
+#gatsby-invitation .party-collage { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; padding: 30px 5px 18px; align-items: start; }
+#gatsby-invitation .party-memory { display: block; width: 100%; padding: 7px 7px 12px; border: 0; background: #ebdfc9; color: #342e24; transform: rotate(-4deg); box-shadow: 0 6px 20px #0003; transition: transform .2s; text-align: center; }
+#gatsby-invitation .party-memory:nth-child(2) { transform: rotate(3deg); margin-top: 15px; }
+#gatsby-invitation .party-memory:nth-child(3) { transform: rotate(-2deg); }
+#gatsby-invitation .party-memory:hover { transform: rotate(0deg) translateY(-4px); }
+#gatsby-invitation .party-memory img { display: block; width: 100%; aspect-ratio: .76; object-fit: cover; }
+#gatsby-invitation .party-memory span { display: block; min-height: 2.5em; font: italic 16px/1.25 'Cormorant Garamond', Georgia, serif; margin-top: 10px; overflow-wrap: anywhere; }
+#gatsby-invitation .party-album-controls { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+#gatsby-invitation .party-album-controls p { color: var(--party-muted); font-size: 12px; }
+#gatsby-invitation .party-small-button { border: 1px solid var(--party-line); color: var(--party-gold); background: transparent; font-size: 13px; padding: 11px 15px; min-height: 44px; }
+#gatsby-invitation .party-photo-view { margin: 24px 0 16px; }
+#gatsby-invitation .party-photo-view img { display: block; width: 100%; max-height: 580px; object-fit: contain; background: var(--party-panel); }
+#gatsby-invitation .party-photo-view p { text-align: center; font: italic 21px/1.4 'Cormorant Garamond', Georgia, serif; margin: 12px 0; color: var(--party-gold); }
+#gatsby-invitation .party-map { display: inline-block; margin-top: 18px; color: var(--party-gold); font-size: 15px; text-underline-offset: 5px; padding: 8px 0; }
+#gatsby-invitation[data-direction='champagne'] .party-portrait { width: 190px; }
+#gatsby-invitation[data-direction='champagne'] .party-age { font-size: 58px; left: 30px; bottom: 20px; }
+@media (max-width: 520px) {
+  #gatsby-invitation .party-name { font-size: 30px; }
+  #gatsby-invitation .party-age { font-size: 60px; }
+  #gatsby-invitation .party-permit { padding: 18px; }
+  #gatsby-invitation .party-permit-head { gap: 10px; }
+  #gatsby-invitation .party-permit h3 { font-size: 28px; }
+  #gatsby-invitation .party-stamp { padding: 6px; font-size: 9px; }
+  #gatsby-invitation .party-collage { gap: 9px; padding-left: 3px; padding-right: 3px; }
+  #gatsby-invitation .party-memory { padding: 4px 4px 8px; }
+  #gatsby-invitation .party-memory span { font-size: 13px; }
+  #gatsby-invitation .party-album h3 { font-size: 28px; }
+  #gatsby-invitation .party-language button { min-height: 44px; }
+  #gatsby-invitation .party-album-controls { flex-wrap: wrap; }
+}
+#gatsby-invitation .party-rsvp { margin-top: 30px; border-top: 1px solid var(--party-line); padding-top: 28px; }
+#gatsby-invitation .party-rsvp h3 { font: 400 34px/1.2 'Cormorant Garamond', Georgia, serif; }
+#gatsby-invitation .party-rsvp label { display: block; margin-top: 18px; color: var(--party-muted); font-size: 14px; }
+#gatsby-invitation .party-rsvp input { display: block; width: 100%; padding: 13px; min-height: 48px; border: 1px solid var(--party-line); background: var(--party-panel); color: var(--party-ink); font: 400 16px/1.4 'Jost',sans-serif; margin: 8px 0 14px; border-radius: 0; }
+#gatsby-invitation .party-rsvp-choices { display: flex; flex-wrap: wrap; gap: 12px; }
+#gatsby-invitation .party-rsvp-choices button { flex: 1 1 210px; min-width: 0; padding: 14px 18px; min-height: 48px; font-size: 15px; line-height: 1.5; border: 1px solid var(--party-gold); color: var(--party-bg); background: var(--party-gold); }
+#gatsby-invitation .party-rsvp-choices button + button { background: transparent; color: var(--party-gold); }
+#gatsby-invitation .party-rsvp-note { margin-top: 13px; font-size: 13px; line-height: 1.5; color: var(--party-muted); }
+#gatsby-invitation .party-contribute { margin-top: 36px; border-top: 1px solid var(--party-line); padding-top: 28px; }
+#gatsby-invitation .party-contribute > .party-kicker { font-size: 11px; color: var(--party-gold); letter-spacing: .12em; }
+#gatsby-invitation .party-contribute h3 { font: 400 34px/1.2 'Cormorant Garamond', Georgia, serif; margin-top: 7px; }
+#gatsby-invitation .party-contribute-intro { margin-top: 12px; color: var(--party-muted); font-size: 16px; line-height: 1.6; }
+#gatsby-invitation .party-contribute label { display: block; margin-top: 20px; font-size: 14px; }
+#gatsby-invitation .party-contribute input, #gatsby-invitation .party-contribute textarea { display: block; width: 100%; min-width: 0; border: 1px solid var(--party-line); padding: 12px; margin-top: 8px; background: var(--party-panel); color: var(--party-ink); font: 400 16px/1.5 'Jost', sans-serif; border-radius: 0; }
+#gatsby-invitation .party-contribute textarea { resize: vertical; min-height: 140px; }
+#gatsby-invitation .party-contribute input[type='file'] { padding: 8px; font-size: 13px; }
+#gatsby-invitation .party-contribute input::file-selector-button { padding: 10px; border: 0; margin-right: 10px; background: var(--party-gold); color: var(--party-bg); font: inherit; }
+#gatsby-invitation .party-field-hint { color: var(--party-muted); font-size: 13px; line-height: 1.5; margin-top: 9px; }
+#gatsby-invitation .party-field-error { color: #f7b4a3; font-size: 14px; line-height: 1.5; margin-top: 8px; }
+#gatsby-invitation .party-field-error:empty, #gatsby-invitation .party-contribution-status:empty { display: none; }
+#gatsby-invitation .party-photo-previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap: 12px; margin: 18px 0; }
+#gatsby-invitation .party-photo-previews figure { margin: 0; min-width: 0; }
+#gatsby-invitation .party-photo-previews img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: var(--party-panel); }
+#gatsby-invitation .party-photo-previews figcaption { font-size: 12px; line-height: 1.4; color: var(--party-muted); margin-top: 6px; overflow-wrap: anywhere; }
+#gatsby-invitation .party-contribution-status { margin-top: 14px; padding-left: 12px; border-left: 2px solid var(--party-gold); font-size: 15px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+#gatsby-invitation .party-title { font-size: clamp(48px, 8.2vw, 67px); line-height: 1; }
+@media (max-width:520px) { #gatsby-invitation .party-title { font-size: clamp(34px, 9.2vw, 49px); } }
+
+html { background: #101211; } body { margin: 0; padding: 24px; } #gatsby-invitation { max-width: 780px; margin: 0 auto; } .cursor-interaction { cursor: pointer; } @media (max-width: 520px) { body { padding: 8px; } }
+
+/* Keep the invitation legible as a single, framed card on small phones. */
+#gatsby-invitation :is(button, a, input):focus-visible { outline: 2px solid var(--party-gold); outline-offset: 4px; }
+#gatsby-invitation .party-permit h3 { overflow-wrap: anywhere; }
+#gatsby-invitation .party-memory:focus-visible { transform: rotate(0deg); }
+@media (max-width: 520px) {
+  #gatsby-invitation .party-frame { padding: 24px 20px; }
+  #gatsby-invitation .party-masthead .party-kicker { max-width: 220px; }
+  #gatsby-invitation .party-edition { align-items: flex-start; }
+  #gatsby-invitation .party-edition span { flex: 1; }
+  #gatsby-invitation .party-edition span:last-child { text-align: right; }
+  #gatsby-invitation .party-hero { grid-template-columns: minmax(0, 1fr); gap: 26px; text-align: center; }
+  #gatsby-invitation .party-title { font-size: clamp(43px, 12vw, 61px); line-height: .96; }
+  #gatsby-invitation .party-deck { max-width: 300px; margin: 18px auto 0; }
+  #gatsby-invitation .party-portrait { width: min(100%, 290px); aspect-ratio: .86; justify-self: center; }
+  #gatsby-invitation .party-age { left: 18px; bottom: 17px; font-size: 76px; }
+  #gatsby-invitation .party-permit-head { gap: 18px; }
+  #gatsby-invitation .party-stamp { margin-left: auto; padding: 6px 12px; font-size: 10px; }
+  #gatsby-invitation .party-collage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 14px; padding: 28px 7px 24px; }
+  #gatsby-invitation .party-memory { padding: 6px 6px 10px; }
+  #gatsby-invitation .party-memory span { font-size: 16px; }
+  #gatsby-invitation .party-memory:nth-child(3) { grid-column: 1 / -1; width: calc((100% - 14px) / 2); justify-self: center; }
+  #gatsby-invitation .party-rsvp-choices { gap: 10px; }
+  #gatsby-invitation .party-rsvp-choices button { flex-basis: 100%; }
+  #gatsby-invitation[data-direction='speakeasy'] .party-hero { grid-template-columns: minmax(0, 1fr); }
+  #gatsby-invitation[data-direction='speakeasy'] .party-headline { grid-column: 1; grid-row: 1; }
+  #gatsby-invitation[data-direction='speakeasy'] .party-portrait { grid-column: 1; grid-row: 2; }
+}
+@media (max-width: 380px) {
+  #gatsby-invitation .party-facts { grid-template-columns: minmax(0, 1fr); gap: 15px; }
+  #gatsby-invitation .party-fact + .party-fact { border-left: 0; border-top: 1px solid var(--party-line); padding: 15px 0 0; }
+  #gatsby-invitation .party-album-head { gap: 10px; }
+  #gatsby-invitation .party-album h3 { font-size: 27px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #gatsby-invitation *, #gatsby-invitation *::before, #gatsby-invitation *::after { animation: none !important; transition: none !important; }
+}
+
+#gatsby-invitation .party-topbar .party-language { margin-left: auto; }
+#gatsby-invitation .party-sound-status { color: var(--party-muted); font-size: 12px; margin-bottom: 12px; }

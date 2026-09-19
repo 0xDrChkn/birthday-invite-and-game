@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#101211"><meta name="description" content="A birthday celebration."><title>A birthday celebration</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="cinema.css"><script src="event-config.js" defer></script><script src="cinema.js" defer></script><script src="script.js" defer></script><script src="music.js" defer></script></head><body>
+<noscript><p style="padding:24px;color:#f3ead7">Please enable JavaScript to open this invitation. / Slå på JavaScript for å åpne invitasjonen.</p></noscript>
+<article id="gatsby-invitation" lang="en" data-direction="gala" data-ornament="deco" aria-label="Birthday invitation">
+  <div class="party-frame" id="invitation" tabindex="-1">
+    <div class="party-topbar">
+      <button class="party-music-toggle cursor-interaction" type="button" data-music-toggle aria-pressed="false" aria-label="Turn sound on" hidden><span aria-hidden="true">♫</span><span data-music-label>Sound off</span></button>
+      <div class="party-language" role="group" aria-label="Language / Språk"><button type="button" class="cursor-interaction" lang="en" data-language="en" aria-pressed="true">English</button><button type="button" class="cursor-interaction" lang="nb" data-language="nb" aria-pressed="false">Norsk</button></div>
+    </div>
+    <audio data-background-music preload="none" hidden></audio>
+    <p class="party-sound-status" data-music-status role="status" hidden></p>
+    <header class="party-masthead"><p class="party-kicker" data-masthead></p></header>
+    <div class="party-edition"><span data-i18n="theme"></span><span data-i18n="invitationOnly"></span></div>
+    <div class="party-hero">
+      <div class="party-headline">
+        <h1 class="party-title" data-headline></h1>
+        <p class="party-deck" data-deck></p>
+      </div>
+      <div class="party-portrait">
+        <img class="party-hero-photo" alt="" data-hero-photo>
+        <span class="party-age" data-age></span>
+      </div>
+    </div>
+    <div class="party-honoree">
+      <p class="party-kicker" data-i18n="celebrate"></p>
+      <h2 class="party-name" data-full-name></h2>
+      <p class="party-line" data-i18n="tagline"></p>
+    </div>
+    <div class="party-facts">
+      <div class="party-fact"><p class="party-kicker" data-i18n="when"></p><p class="party-fact-value" data-event-date></p></div>
+      <div class="party-fact"><p class="party-kicker" data-i18n="where"></p><p class="party-fact-value"><span data-street></span><br><span data-town></span></p></div>
+    </div>
+    <button class="party-open cursor-interaction" type="button" aria-expanded="false" aria-controls="party-details"><span data-open-label>Open your invitation</span><span aria-hidden="true">↓</span></button>
+    <div class="party-details" id="party-details" hidden>
+      <div class="party-tabs" role="group" aria-label="Invitation details">
+        <button class="party-tab cursor-interaction" type="button" aria-pressed="true" aria-controls="party-evening" data-section="evening" data-i18n="eveningTab"></button>
+        <button class="party-tab cursor-interaction" type="button" aria-pressed="false" aria-controls="party-dress" data-section="dress" data-i18n="dressTab"></button>
+        <button class="party-tab cursor-interaction" type="button" aria-pressed="false" aria-controls="party-location" data-section="location" data-i18n="locationTab"></button>
+      </div>
+      <section class="party-section" id="party-evening" aria-label="The evening">
+        <h3 data-i18n="eveningTitle"></h3>
+        <p data-i18n="eveningIntro"></p>
+        <ol class="party-program">
+          <li><span class="party-program-number">01</span><div><h4 class="party-program-title" data-i18n="program1"></h4><p data-i18n="program1body"></p></div></li>
+          <li><span class="party-program-number">02</span><div><h4 class="party-program-title" data-i18n="program2"></h4><p data-i18n="program2body"></p></div></li>
+          <li><span class="party-program-number">03</span><div><h4 class="party-program-title" data-i18n="program3"></h4><p data-i18n="program3body"></p></div></li>
+        </ol>
+      </section>
+      <section class="party-section" id="party-dress" aria-label="Dress code" hidden>
+        <h3 data-i18n="dressTitle"></h3>
+        <p data-i18n="dressBody"></p>
+        <div class="party-dress-words"><span data-i18n="dress1"></span><span data-i18n="dress2"></span><span data-i18n="dress3"></span></div>
+      </section>
+      <section class="party-section" id="party-location" aria-label="Location" hidden>
+        <h3 data-i18n="locationTitle"></h3>
+        <address class="party-address"><span data-street></span><br><span data-town></span>, <span data-country></span></address>
+        <p class="party-location-note" data-i18n="locationBody"></p>
+        <a class="party-map cursor-interaction" data-map-link target="_blank" rel="noopener noreferrer" data-i18n="map"></a>
+      </section>
+    </div>
+    <section class="party-rsvp" aria-label="RSVP">
+      <h3 data-i18n="rsvpTitle"></h3>
+      <form id="party-rsvp-form">
+        <label for="party-guest-name" data-i18n="guestName"></label>
+        <input id="party-guest-name" name="guestName" type="text" autocomplete="name" maxlength="120" required>
+        <div class="party-rsvp-choices"><button class="cursor-interaction" type="submit" name="reply" value="yes" data-i18n="rsvpYes"></button><button class="cursor-interaction" type="submit" name="reply" value="no" data-i18n="rsvpNo"></button></div>
+        <p class="party-rsvp-note" data-i18n="rsvpNote"></p>
+        <p class="party-rsvp-note" data-rsvp-status role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="party-permit" aria-label="Food and drinks">
+      <div class="party-permit-head"><div><p class="party-kicker" data-i18n="permitKicker"></p><h3 data-i18n="permitTitle"></h3></div><div class="party-stamp" aria-hidden="true">BYOB<br><span data-i18n="approved"></span></div></div>
+      <p class="party-permit-copy" data-i18n="permitJoke"></p>
+      <p class="party-permit-copy"><strong data-i18n="food"></strong> <span data-i18n="byob"></span></p>
+      <p class="party-fineprint" data-i18n="permitFooter"></p>
+    </section>
+    <section class="party-contribute" aria-labelledby="party-contribute-title">
+      <p class="party-kicker" data-i18n="contributeKicker"></p>
+      <h3 id="party-contribute-title" data-i18n="contributeTitle"></h3>
+      <p class="party-contribute-intro" data-i18n="contributeIntro"></p>
+      <form id="party-contribution-form">
+        <label for="party-contributor" data-i18n="contributorLabel"></label>
+        <input id="party-contributor" name="contributor" autocomplete="name" maxlength="120" required>
+        <label for="party-story" data-i18n="storyLabel"></label>
+        <textarea id="party-story" name="story" rows="5" maxlength="3000" required aria-describedby="party-story-hint"></textarea>
+        <p class="party-field-hint" id="party-story-hint" data-i18n="storyHint"></p>
+        <label for="party-photos" data-i18n="photosLabel"></label>
+        <input id="party-photos" name="photos" type="file" accept="image/*" multiple aria-describedby="party-photos-hint party-photo-error">
+        <p class="party-field-hint" id="party-photos-hint" data-i18n="photosHint"></p>
+        <p class="party-field-error" id="party-photo-error" role="alert"></p>
+        <div class="party-photo-previews" data-photo-previews></div>
+        <button class="party-small-button cursor-interaction" type="submit" data-i18n="contributeButton"></button>
+        <p class="party-field-hint" data-i18n="contributeNote"></p>
+        <p class="party-contribution-status" data-contribution-status role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="party-album" aria-label="Birthday photo album">
+      <div class="party-album-head"><div><p class="party-kicker" data-i18n="albumKicker"></p><h3 data-i18n="albumTitle"></h3></div><span class="party-paging" data-page-count aria-live="polite">01 / 03</span></div>
+      <div class="party-collage">
+        <button class="party-memory cursor-interaction" type="button" data-memory="0"><img alt=""><span></span></button>
+        <button class="party-memory cursor-interaction" type="button" data-memory="1"><img alt=""><span></span></button>
+        <button class="party-memory cursor-interaction" type="button" data-memory="2"><img alt=""><span></span></button>
+      </div>
+      <div class="party-photo-view" hidden><img alt="" data-large-photo><p data-photo-caption></p></div>
+      <div class="party-album-controls"><p data-i18n="albumHint"></p><button class="party-small-button cursor-interaction" type="button" data-next-page>More memories →</button><button class="party-small-button cursor-interaction" type="button" data-close-photo hidden>Back to the album</button></div>
+    </section>
+    <p class="party-signoff" data-signoff></p>
+  </div>
+</article>
+</body></html>

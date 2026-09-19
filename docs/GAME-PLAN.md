@@ -1,6 +1,6 @@
-# Birthday quiz — future implementation plan
+# Birthday quiz — implementation and next steps
 
-**Status: category/design proposal, not a playable game yet.** Updated 19 September 2026 after exploring the user's game reference. The user wants a simple host-operated TV game and recommendations for the rounds. Submission code exists separately; the live collection service is still being chosen.
+**Status: playable starter game built on 19 September 2026.** Open `/game/` for 2–6 teams, a bilingual black-and-gold board, answer reveals, an optional timer, plus/minus scoring, undo, local game saving and eight Sara reaction stickers. The public rehearsal pack has **22 playable clues and 8 draft slots** for personal material. [Game usage](../game/README.md) and [content notes](GAME-CONTENT.md) describe the current base. The remaining sections preserve the content direction and future plan; extra wildcards and private pack imports are not built yet.
 
 ## The experience
 
@@ -105,7 +105,7 @@ The public invitation can stay on GitHub Pages independently. Until a protection
 
 ## Implementation sequence and acceptance checks
 
-1. **Finish the reusable invitation.** Keep the game entry point an honest “coming later” placeholder.
+1. **Playable game base — complete.** Expand the verified personal question pack before the birthday; keep unfinished tiles explicitly marked.
 2. **Choose private submission storage.** Connect story/photo collection and host review without exposing submissions in the public site.
 3. **Approve the question pack and answer-access model.** Collect real Sara content, prepare face-mashup images, confirm answers and decide whether the game runs locally or behind authentication.
 4. **Build and test the host-controlled game.** Verify 2 and 6 teams, positive and negative scores, undo, duplicate-award prevention, used clues, reload recovery, unavailable storage, reset cancellation and reset confirmation.

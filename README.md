@@ -14,9 +14,11 @@ Blomstervegen 37B, 2005 Rælingen, Norway
 
 The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and food/drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The original first three album photographs lead; the two table-tennis photographs come last. Guests can skip the entrance.
 
-**RSVP, story/photo storage and a private organiser dashboard are implemented and tested against local Supabase. The live project is not connected yet.** Until `submissions.url` and `submissions.publishableKey` are configured, the forms clearly show that submissions are unavailable and do not report a successful save. Connect the account using [the setup guide](docs/SUBMISSIONS.md). The [organiser dashboard](https://0xdrchkn.github.io/birthday-invite-and-game/organiser/) shows replies, attendance, stories and photos, with CSV export and deletion. The TV game is still planned; see [the game plan](docs/GAME-PLAN.md).
+**RSVP, story/photo storage and a private organiser dashboard are implemented and tested against local Supabase. The live project is not connected yet.** Until `submissions.url` and `submissions.publishableKey` are configured, the forms clearly show that submissions are unavailable and do not report a successful save. Connect the account using [the setup guide](docs/SUBMISSIONS.md). The [organiser dashboard](https://0xdrchkn.github.io/birthday-invite-and-game/organiser/) shows replies, attendance, stories and photos, with CSV export and deletion. The [TV game](https://0xdrchkn.github.io/birthday-invite-and-game/game/) now has a playable base: 2–6 teams, 22 ready clues, eight Sara reactions, a timer, plus/minus scoring, undo and local saving. Eight personal/mashup slots still need content. See [game usage](game/README.md).
 
 The host is considering a simpler Tally form or direct Discord collection instead of connecting Supabase. The proposed bilingual form fields and setup are in [the guest form draft](docs/GUEST-FORM-DRAFT.md); no alternative service is connected yet.
+
+A real local RSVP/photo test is also prepared on this Mac: [test invitation](http://127.0.0.1:49175/#party-rsvp), [organiser dashboard](http://127.0.0.1:49175/organiser/), and [local test instructions](docs/LOCAL-TEST.md). These localhost links are for testing only; they do not make the public guest form live.
 
 ## Use it for another person
 
@@ -68,7 +70,7 @@ node --check organiser/organiser.js
 - `backend/schema.sql`: database tables, access policies and private photo bucket.
 - `tests/`, `supabase/`: isolated local Supabase verification; see the submission guide.
 - `assets/`: optimized public website images; Sara’s originals are not altered.
-- `game/`: honest placeholder for the later TV game, hosted alongside the invitation.
+- `game/`: playable TV game, bilingual starter question pack and Sara reaction stickers.
 - `docs/`: game plan, submission setup, generated-asset notes.
 
-These event details and published images are public on GitHub Pages; `noindex` discourages indexing but does not restrict access. Keep private guest responses, unreleased stories, game answers and credentials out of this repository. Do not reuse Sara’s personal photos for a different birthday.
+These event details and published images are public on GitHub Pages; `noindex` discourages indexing but does not restrict access. Keep private guest responses, unreleased stories, private game answers and credentials out of this repository. The current game pack contains public rehearsal answers. Do not reuse Sara’s personal photos for a different birthday.

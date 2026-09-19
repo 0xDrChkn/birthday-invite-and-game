@@ -12,7 +12,7 @@ Blomstervegen 37B, 2005 Rælingen, Norway
 
 “Reliving your twenties” / “Tjueårene om igjen”
 
-The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code, food/drinks and the proposed programme open in focused dialogs. Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The original first three album photographs lead; the two table-tennis photographs come last. Guests can skip the entrance.
+The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and food/drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The original first three album photographs lead; the two table-tennis photographs come last. Guests can skip the entrance.
 
 **RSVP and story/photo submissions are local previews only. Nothing is sent or saved.** The TV game is planned, not playable yet. These are explicitly deferred features; see [the game plan](docs/GAME-PLAN.md) and [submission plan](docs/SUBMISSIONS.md).
 

@@ -147,28 +147,6 @@ window.BIRTHDAY_CONFIG = {
         "en": "{name} dressed up holding an ice bucket",
         "nb": "{name} pyntet til fest med en isbøtte"
       }
-    },
-    {
-      "src": "assets/memory-10-table-tennis.jpg",
-      "caption": {
-        "en": "Game face: activated",
-        "nb": "Kampfjes: aktivert"
-      },
-      "alt": {
-        "en": "{name} concentrating on a table-tennis shot in a red and yellow shirt",
-        "nb": "{name} konsentrerer seg om et bordtennisslag i en rød og gul trøye"
-      }
-    },
-    {
-      "src": "assets/memory-11-trophy.jpg",
-      "caption": {
-        "en": "A different kind of golden hour",
-        "nb": "Et gyllent øyeblikk"
-      },
-      "alt": {
-        "en": "{name} smiling and holding a trophy in sportswear",
-        "nb": "{name} smiler og holder et trofé i treningsklær"
-      }
     }
   ],
   "hero": {

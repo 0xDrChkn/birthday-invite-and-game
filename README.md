@@ -2,7 +2,7 @@
 
 A reusable Gatsby birthday website: a cinematic invitation and a playable host-controlled TV party game. Plain HTML, CSS and JavaScript, served directly by GitHub Pages. No build step. A pinned Supabase browser client handles private submissions.
 
-**[Open the invitation](https://0xdrchkn.github.io/birthday-invite-and-game/)** · **[Play the game](https://0xdrchkn.github.io/birthday-invite-and-game/game/)**
+**[Open the invitation](https://0xdrchkn.github.io/saras-30th/)** · **[Play the game](https://0xdrchkn.github.io/saras-30th/game/)**
 
 ## Current celebration
 
@@ -14,11 +14,13 @@ Blomstervegen 37B, 2005 Rælingen, Norway
 
 The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and food/drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The nine selected album photographs appear across three pages. Guests can skip the entrance.
 
-**RSVP, story/photo storage and a private organiser dashboard are implemented and tested against local Supabase. The live project is not connected yet.** Until `submissions.url` and `submissions.publishableKey` are configured, the forms clearly show that submissions are unavailable and do not report a successful save. Connect the account using [the setup guide](docs/SUBMISSIONS.md). The [organiser dashboard](https://0xdrchkn.github.io/birthday-invite-and-game/organiser/) shows replies, attendance, stories and photos, with CSV export and deletion. The [TV game](https://0xdrchkn.github.io/birthday-invite-and-game/game/) now has a playable base: 2–6 teams, 22 ready clues, two selected Sara reactions, a timer, plus/minus scoring, undo and local saving. Eight personal/mashup slots still need content. See [game usage](game/README.md), the [detailed specification and reference comparison](docs/GAME-SPEC.md), and [all 30 proposed clue briefs](docs/GAME-CATEGORIES.md).
+**RSVP, story/photo storage and a private organiser dashboard are implemented and tested against local Supabase. The live project is not connected yet.** Until `submissions.url` and `submissions.publishableKey` are configured, the forms clearly show that submissions are unavailable and do not report a successful save. Connect the account using [the setup guide](docs/SUBMISSIONS.md). The [organiser dashboard](https://0xdrchkn.github.io/saras-30th/organiser/) shows replies, attendance, stories and photos, with CSV export and deletion. The [TV game](https://0xdrchkn.github.io/saras-30th/game/) now has a playable base: 2–6 teams, 22 ready clues, two selected Sara reactions, a timer, plus/minus scoring, undo and local saving. Eight personal/mashup slots still need content. See [game usage](game/README.md), the [detailed specification and reference comparison](docs/GAME-SPEC.md), and [all 30 proposed clue briefs](docs/GAME-CATEGORIES.md).
 
 The host is considering a simpler Tally form or direct Discord collection instead of connecting Supabase. The proposed bilingual form fields and setup are in [the guest form draft](docs/GUEST-FORM-DRAFT.md); no alternative service is connected yet.
 
 A real local RSVP/photo test is also prepared on this Mac: [test invitation](http://127.0.0.1:49175/#party-rsvp), [organiser dashboard](http://127.0.0.1:49175/organiser/), and [local test instructions](docs/LOCAL-TEST.md). These localhost links are for testing only; they do not make the public guest form live.
+
+The local guest book now includes ten labelled demo guests with ten stories and twenty verified photo uploads. See [the invitation readiness check and simplest launch option](docs/INVITATION-READINESS.md). The proposed hosted-form route has not been connected yet.
 
 ## Use it for another person
 

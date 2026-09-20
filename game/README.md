@@ -1,6 +1,6 @@
 # The Sara quiz
 
-A host-controlled game for one laptop connected to a television. Open [the game](https://0xdrchkn.github.io/birthday-invite-and-game/game/) and enter 2–6 team names.
+A host-controlled game for one laptop connected to a television. Open [the game](https://0xdrchkn.github.io/saras-30th/game/) and enter 2–6 team names.
 
 1. Pick the answering team in the score bar.
 2. Click a category/point tile. Start the optional 45-second timer.

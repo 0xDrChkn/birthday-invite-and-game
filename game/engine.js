@@ -49,14 +49,19 @@
     return (first >>> 0).toString(16).padStart(8, '0') + (second >>> 0).toString(16).padStart(8, '0');
   }
 
-  function readPack(pack) {
+  function readPack(pack, categoryIds) {
     if (!isRecord(pack) || !validId(pack.id) || !Array.isArray(pack.categories) || !pack.categories.length || pack.categories.length > 12) {
       fail('invalid_pack', 'The question pack must have an ID and 1–12 categories.');
     }
+    const availableIds = pack.categories.map(category => category?.id);
+    if (availableIds.some(id => !validId(id)) || new Set(availableIds).size !== availableIds.length) fail('invalid_pack', 'Each category needs a unique ID.');
+    const selectedIds = categoryIds === undefined ? availableIds : categoryIds;
+    if (!Array.isArray(selectedIds) || !selectedIds.length || selectedIds.length > 12 || new Set(selectedIds).size !== selectedIds.length || selectedIds.some(id => !availableIds.includes(id))) fail('invalid_categories', 'Choose distinct categories from this question bank.');
+    const selected = selectedIds.map(id => pack.categories.find(category => category.id === id));
     const clueIds = new Set();
     const clues = [];
     const content = [];
-    pack.categories.forEach(category => {
+    selected.forEach(category => {
       if (!isRecord(category) || !Array.isArray(category.clues) || category.clues.length > 10) {
         fail('invalid_pack', 'Each category must contain a clue list of at most 10 clues.');
       }
@@ -70,7 +75,7 @@
       });
     });
     if (!clues.length) fail('invalid_pack', 'The question pack has no clues.');
-    return { id: pack.id, fingerprint: fingerprint(content), clues };
+    return { id: pack.id, fingerprint: fingerprint(content), categoryIds: selectedIds.slice(), clues };
   }
 
   function cleanNames(names) {
@@ -91,6 +96,7 @@
       Object.freeze(state[key]);
     });
     Object.freeze(state.teamNames);
+    Object.freeze(state.categoryIds);
     Object.freeze(state.completedClueIds);
     return Object.freeze(state);
   }
@@ -100,6 +106,7 @@
       version: VERSION,
       packId: pack.id,
       packFingerprint: pack.fingerprint,
+      categoryIds: pack.categoryIds.slice(),
       teamNames: names.slice(),
       teams: names.map((name, index) => ({ id: 'team-' + (index + 1), name, score: 0 })),
       clueCatalog: pack.clues.map(clue => ({ ...clue })),
@@ -114,8 +121,8 @@
     });
   }
 
-  function create(names, pack) {
-    return initial(cleanNames(names), readPack(pack));
+  function create(names, pack, categoryIds) {
+    return initial(cleanNames(names), readPack(pack, categoryIds));
   }
 
   function getClue(state, clueId) {
@@ -172,6 +179,15 @@
         next.undoIndex = state.history.length;
         break;
       }
+      case 'adjust': {
+        eventShape(event, ['type', 'teamId', 'amount', 'reason']);
+        if (!state.teams.some(team => team.id === event.teamId)) fail('unknown_team', 'Choose one of the teams in this game.');
+        if (!Number.isSafeInteger(event.amount) || event.amount === 0 || Math.abs(event.amount) > 1000000) fail('invalid_adjustment', 'Enter a non-zero whole-number correction up to 1,000,000 points.');
+        if (typeof event.reason !== 'string' || !event.reason.trim() || event.reason.length > 160 || /[\u0000-\u001f\u007f]/.test(event.reason)) fail('invalid_reason', 'Give a short reason for the score correction.');
+        next.teams = state.teams.map(team => team.id === event.teamId ? { ...team, score: team.score + event.amount } : team);
+        next.undoIndex = state.history.length;
+        break;
+      }
       case 'finish': {
         eventShape(event, ['type']);
         const clue = requireCurrent(state);
@@ -212,7 +228,7 @@
     if (!canUndo(state)) return state;
     // Remove the latest score decision and later navigation/completion in one
     // operation. A clue finished without scoring is its own undo boundary.
-    return replay(state.teamNames, { id: state.packId, fingerprint: state.packFingerprint, clues: state.clueCatalog }, state.history.slice(0, state.undoIndex));
+    return replay(state.teamNames, { id: state.packId, fingerprint: state.packFingerprint, clues: state.clueCatalog, categoryIds: state.categoryIds }, state.history.slice(0, state.undoIndex));
   }
 
   function serialize(state) {
@@ -220,6 +236,7 @@
       version: VERSION,
       packId: state.packId,
       packFingerprint: state.packFingerprint,
+      categoryIds: state.categoryIds,
       teamNames: state.teamNames,
       history: state.history
     });
@@ -232,7 +249,7 @@
         saved = JSON.parse(saved);
       }
       if (!isRecord(saved) || saved.version !== VERSION) return null;
-      const currentPack = readPack(pack);
+      const currentPack = readPack(pack, saved.categoryIds);
       if (saved.packId !== currentPack.id || saved.packFingerprint !== currentPack.fingerprint) return null;
       return replay(cleanNames(saved.teamNames), currentPack, saved.history);
     } catch (_) {
@@ -252,6 +269,7 @@
     selectTeam: (state, teamId) => transition(state, { type: 'select', teamId }),
     reveal: state => transition(state, { type: 'reveal' }),
     award: (state, deltaSign) => transition(state, { type: 'award', sign: deltaSign }),
+    adjustScore: (state, teamId, amount, reason) => transition(state, { type: 'adjust', teamId, amount, reason }),
     finishClue: state => transition(state, { type: 'finish' }),
     cancelClue: state => transition(state, { type: 'cancel' }),
     undo,

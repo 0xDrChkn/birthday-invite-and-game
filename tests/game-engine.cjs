@@ -254,3 +254,49 @@ test('a complete six-team, thirty-clue party can reload and undo its final resul
   assert.equal(state.teams[5].score, 1000);
   assert.equal(game.isComplete(state), false);
 });
+
+test('category selections constrain the board and survive scoring, restore and undo', () => {
+  let state = game.create(['One','Two'], pack(), ['films']);
+  assert.deepEqual(state.categoryIds, ['films']);
+  assert.deepEqual(state.clueCatalog.map(clue => clue.id), ['film-100','film-500']);
+  assert.throws(() => game.openClue(state,'draft-100'),code('unknown_clue'));
+  state = game.award(openForTeam(state),1);
+  const restored = game.restore(game.serialize(state),pack());
+  assert.deepEqual(restored,state);
+  assert.deepEqual(game.undo(restored).categoryIds,['films']);
+  const changedOutsideBoard = pack();
+  changedOutsideBoard.categories[1].clues[0].answer='Unselected content changed';
+  assert.deepEqual(game.restore(game.serialize(state),changedOutsideBoard),state);
+});
+
+test('unknown, empty and duplicated category choices fail without creating a game', () => {
+  [[],['missing'],['films','films'],[{}]].forEach(ids => assert.throws(() => game.create(['One','Two'],pack(),ids),code('invalid_categories')));
+  const duplicate = pack(); duplicate.categories[1].id='films';
+  assert.throws(() => game.create(['One','Two'],duplicate),code('invalid_pack'));
+});
+
+test('manual corrections are logged, replayed and undone independently of clue awards', () => {
+  let state = game.finishClue(game.award(openForTeam(start()),1));
+  state = game.adjustScore(state,'team-1',-25,'Correct an earlier ruling');
+  state = game.adjustScore(state,'team-2',50,'House-rule bonus');
+  assert.deepEqual(state.teams.map(team => team.score),[75,50]);
+  assert.equal(state.attempts.length,1);
+  assert.equal(state.history.at(-1).reason,'House-rule bonus');
+  state = game.restore(game.serialize(state),pack());
+  state = game.undo(state);
+  assert.deepEqual(state.teams.map(team => team.score),[75,0]);
+  state = game.undo(state);
+  assert.deepEqual(state.teams.map(team => team.score),[100,0]);
+  assert.deepEqual(state.completedClueIds,['film-100']);
+  state = game.undo(state);
+  assert.deepEqual(state.teams.map(team => team.score),[0,0]);
+  assert.equal(state.currentClueId,'film-100');
+});
+
+test('manual corrections reject missing team, invalid numbers and absent reasons', () => {
+  assert.throws(() => game.adjustScore(start(),'unknown',50,'Bonus'),code('unknown_team'));
+  [0,0.5,Infinity,NaN,'100',1000001,-1000001].forEach(amount => assert.throws(() => game.adjustScore(start(),'team-1',amount,'Reason'),code('invalid_adjustment')));
+  ['',null,'a'.repeat(161),'line\nbreak'].forEach(reason => assert.throws(() => game.adjustScore(start(),'team-1',50,reason),code('invalid_reason')));
+  const saved = JSON.parse(game.serialize(start()));
+  assert.equal(game.restore({...saved,history:[{type:'adjust',teamId:'team-1',amount:1,reason:'Fine',injected:true}]},pack()),null);
+});

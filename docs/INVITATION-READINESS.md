@@ -6,11 +6,12 @@ Public invitation: https://0xdrchkn.github.io/saras-30th/
 
 Keep the existing Gatsby custom form and organiser. Run the Node 24/SQLite service on the always-on Mac mini and store responses and photographs there. Tally is not embedded or published; Docker and Supabase are not needed for the new service.
 
-The implementation is working on the development MacBook. Installation on the actual Mini, its persistent HTTPS tunnel, and an external guest check remain outstanding. The public GitHub Pages form is deliberately not pointed at localhost and is not yet accepting remote submissions.
+The implementation is working on the development MacBook. `start-mac-mini.sh` now automates installation and connection to the Mini’s existing Tailscale account; see [the handoff](../START-HERE-MAC-MINI.md). Installation on the actual Mini, its persistent HTTPS tunnel, and an external guest check remain outstanding. The public GitHub Pages form is deliberately not pointed at localhost and is not yet accepting remote submissions.
 
 ## Verified locally
 
 - **130 HTTP checks** cover ten guests, RSVP edits, optional email, stories, photos, retry deduplication, validation, authentication, guest isolation, expired photo links, write failure recovery, restart and backup restoration.
+- The Mini launcher suite uses simulated Tailscale status/route commands and a real isolated service to verify route conflicts, repeated setup, failed public checks, generated Pages configuration and the disposable RSVP/photo test. No real Funnel was enabled on the development MacBook.
 - The installer/recovery suite checks an isolated installation, private permissions, preserved credentials/data on updates, backup refusal while running, checksum verification and restoration with exact photo bytes.
 - The real custom form saved a named browser-test RSVP, email, story and three synthetic photos; reloading restored the saved receipt and attachments. The authenticated organiser displayed the same name, email, story and all three photo links. Photo-only saving and its Norwegian receipt were checked too. Both guest and host sessions restored after a service restart; a downloaded CSV contained all eleven replies with the expected email, story and photo counts.
 - Ten labelled demo guests remain in the new local guest book: seven attending, three declining, ten fictional stories and twenty synthetic photos. The separate browser test adds one attending guest with three photos. No guests were contacted.

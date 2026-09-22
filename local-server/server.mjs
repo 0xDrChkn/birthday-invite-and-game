@@ -15,7 +15,7 @@ const PHOTO_LIMIT = 20 * MB;
 const BODY_LIMIT = 61 * MB;
 const ADMIN_TTL = 12 * 60 * 60 * 1000;
 const PHOTO_TTL = 60 * 60 * 1000;
-const PUBLIC_ROOT_FILES = new Set(['index.html','event-config.js','style.css','cinema.css','story.css','submissions.css','script.js','cinema.js','story.js','music.js','submissions.js','local-submissions.js','favicon.svg']);
+const PUBLIC_ROOT_FILES = new Set(['index.html','event-config.js','hosting-config.js','style.css','cinema.css','story.css','submissions.css','script.js','cinema.js','story.js','music.js','submissions.js','local-submissions.js','favicon.svg']);
 const MIME = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.avif':'image/avif','.gif':'image/gif','.ico':'image/x-icon','.woff':'font/woff','.woff2':'font/woff2','.mp3':'audio/mpeg','.m4a':'audio/mp4','.ogg':'audio/ogg','.wav':'audio/wav'};
 
 export const defaultDataDir = join(homedir(), 'Library', 'Application Support', 'Saras30', 'data');
@@ -163,7 +163,7 @@ export async function createServer({rootDir = resolve(dirname(fileURLToPath(impo
       // Deliberately ignore forwarded IP headers: this process is intended to sit behind a tunnel.
       const address=req.socket.remoteAddress || 'unknown';
       rate(`api:${address}`,300);
-      if (url.pathname==='/api/health' && req.method==='GET') return send(res,200,{ok:true});
+      if (url.pathname==='/api/health' && req.method==='GET') return send(res,200,{ok:true,service:'saras30-invitation',eventId:config.eventId});
       if (url.pathname==='/api/rsvp' && req.method==='POST') {
         const input=await jsonBody(req); event(input.eventId);
         const name=cleanName(input.name), email=cleanEmail(input.email);

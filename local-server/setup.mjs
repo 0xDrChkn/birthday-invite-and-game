@@ -8,8 +8,8 @@ import { spawnSync } from 'node:child_process';
 
 const LABEL = 'local.saras30.invitation';
 const defaultHome = join(homedir(), 'Library', 'Application Support', 'Saras30');
-const publicFiles = ['.nojekyll','index.html','event-config.js','favicon.svg','style.css','cinema.css','cinema.js','story.css','story.js','submissions.css','submissions.js','local-submissions.js','script.js','music.js'];
-const helpers = ['server.mjs','setup.mjs','manage.mjs','backup.mjs','install-macos.sh'];
+const publicFiles = ['.nojekyll','index.html','event-config.js','hosting-config.js','favicon.svg','style.css','cinema.css','cinema.js','story.css','story.js','submissions.css','submissions.js','local-submissions.js','script.js','music.js'];
+const helpers = ['server.mjs','setup.mjs','manage.mjs','backup.mjs','install-macos.sh','launch.mjs','verify-live.mjs'];
 const extensions = new Set(['.html','.js','.css','.svg','.png','.jpg','.jpeg','.webp','.avif','.gif','.ico','.woff','.woff2','.mp3','.m4a','.ogg','.wav']);
 const xml = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&apos;');
 function args(argv) {

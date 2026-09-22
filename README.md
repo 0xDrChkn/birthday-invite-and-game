@@ -4,6 +4,20 @@ A reusable Gatsby birthday website: a cinematic invitation and a playable host-c
 
 **[Open the invitation](https://0xdrchkn.github.io/saras-30th/)** · **[Play the game](https://0xdrchkn.github.io/saras-30th/game/)**
 
+## Start it on the Mac mini
+
+Tailscale is already in use. On the Mini, clone/open this repo, make sure Node.js 24+ and Tailscale are running, then run:
+
+```sh
+./start-mac-mini.sh
+```
+
+This installs/updates the service, preserves stored replies, detects the Mini’s Tailscale address, and enables a persistent Funnel for the invitation. It avoids other existing Tailscale web routes. If Tailscale asks for Funnel permission, finish that prompt and rerun if necessary.
+
+The launcher checks a disposable RSVP, story and photo through HTTPS, verifies organiser access and the downloaded photo, then removes the test. It prints the invitation, organiser and game links, plus the location of your private organiser login. **The actual Mini and an off-network phone check are still required before launch.**
+
+To retain the GitHub Pages share link, commit and push the generated `hosting-config.js` from the Mini after the check passes; the launcher prints the exact commands. This file contains only the public URL. See [the short handoff](START-HERE-MAC-MINI.md) and [installation/recovery details](docs/MAC-MINI.md).
+
 ## Current celebration
 
 Sara Matilda Berner · 30 · 17 November 2026, 19:00 Europe/Oslo
@@ -63,6 +77,8 @@ node --check organiser/organiser.js
 
 - `index.html`, `style.css`, `script.js`: invitation, interactions and responsive layout.
 - `event-config.js`: reusable identity, event, photos, audio and bilingual content.
+- `hosting-config.js`: public Mac mini endpoint, generated only after the HTTPS flow check passes.
+- `start-mac-mini.sh`: one-command installation and Tailscale connection for the Mini.
 - `cinema.js`, `cinema.css`: full-castle camera approach and Sara greeting.
 - `story.js`, `story.css`: scroll-driven chapters and detail dialogs.
 - `music.js`: optional background audio and discreet controls.

@@ -27,15 +27,15 @@ All API responses use JSON except photo bytes. Error responses are `{ "code": "i
 
 | Method / route | Request | Result |
 | --- | --- | --- |
-| `GET /api/health` | None | `{ok:true}` |
+| `GET /api/health` | None | `{ok:true,service:"saras30-invitation",eventId}` |
 | `POST /api/rsvp` | JSON `{eventId,name,email?,accepted,requestId?,token?}` | `{token,reply}` |
 | `GET /api/guest?eventId=…` | Guest bearer token | Saved guest view |
 | `POST /api/contribution` | Guest bearer token; multipart `eventId`, `story`, zero to three `photos` | Saved guest view |
 | `POST /api/organiser/login` | JSON `{email,password}` | `{token,user:{email},expiresAt}` |
 | `GET /api/organiser/session` | Organiser bearer token | `{email}` |
-| `POST /api/organiser/logout` | Organiser bearer token | `{ok:true}` |
+| `POST /api/organiser/logout` | Organiser bearer token | `{ok:true,service:"saras30-invitation",eventId}` |
 | `GET /api/organiser/submissions?eventId=…` | Organiser bearer token | Array of guest views |
-| `DELETE /api/organiser/submission?eventId=…&userId=…` | Organiser bearer token | `{ok:true}` |
+| `DELETE /api/organiser/submission?eventId=…&userId=…` | Organiser bearer token | `{ok:true,service:"saras30-invitation",eventId}` |
 | `GET /api/photos/:id?token=…` | Expiring signed URL returned in a guest view | Private image bytes |
 
 A guest view contains `userId`, `name`, `email`, `accepted`, `story`, `createdAt`, `updatedAt`, `contributedAt`, `pendingUpload:false`, and `photos:[{id,name,type,size,slot,url}]`. Photo URLs are relative to the API origin and expire after an hour. Read the guest or organiser view again to renew them. Organiser sessions expire after 12 hours. Guest edit tokens remain valid until the organiser deletes their response; losing local browser storage loses that guest's self-edit access.

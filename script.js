@@ -10,6 +10,7 @@
   const rsvpForm = root.querySelector('#party-rsvp-form');
   const contributionForm = root.querySelector('#party-contribution-form');
   const guestInput = root.querySelector('#party-guest-name');
+  const emailInput = root.querySelector('#party-guest-email');
   const storyInput = root.querySelector('#party-story');
   const photoInput = root.querySelector('#party-photos');
   const photoPreview = root.querySelector('[data-photo-previews]');
@@ -128,6 +129,9 @@
     root.querySelector('#food-dialog').setAttribute('aria-label', story.foodAction);
     root.querySelectorAll('[data-dialog-close]').forEach(button => button.setAttribute('aria-label', isNb ? 'Lukk' : 'Close'));
     root.querySelector('#party-evidence').hidden = !lastReply;
+    root.querySelector('#party-email-field').hidden = !submissions?.supportsEmail;
+    root.querySelector('[data-guest-email-label]').textContent = isNb ? 'E-post (valgfritt)' : 'Email (optional)';
+    storyInput.required = !submissions?.allowsPhotoOnly;
     if (lastReply) {
       root.querySelector('#party-contributor').value = lastReply.name;
       root.querySelector('[data-contributor-name]').textContent = lastReply.name;
@@ -168,6 +172,7 @@
   function errorMessage(error) {
     const copy = submissionCopy[state.language];
     const code = String(error?.code || '').toLowerCase();
+    if (code === 'storage_unavailable') return state.language === 'nb' ? 'Nettleseren blokkerer lokal lagring. Tillat lagring for denne siden før du sender svaret.' : 'Your browser is blocking local storage. Allow storage for this site before sending your reply.';
     if (code === 'not_configured') return copy.unavailable;
     if (code === 'unavailable') return copy.serviceUnavailable;
     if (code === 'upload_incomplete') return copy.uploadIncomplete;
@@ -194,9 +199,9 @@
     const images = lastContribution.photos || [];
     const contents = {
       'eyebrow':copy.received, 'title':copy.receiptTitle,
-      'summary':copy.receiptSummary(lastReply.name,images.length), 'privacy':copy.receiptPrivacy,
+      'summary':(lastContribution.story?.trim() ? copy.receiptSummary(lastReply.name,images.length) : (state.language === 'nb' ? `${lastReply.name}, bildene dine er trygt lagret.` : `${lastReply.name}, your photos are safely saved.`)), 'privacy':copy.receiptPrivacy,
       'reply-label':copy.replyLabel, 'reply':lastReply.accepted ? copy.coming : copy.notComing,
-      'story-label':copy.storyLabel, 'story':copy.saved, 'photos-label':copy.photoLabel, 'photos':copy.photoCount(images.length)
+      'story-label':copy.storyLabel, 'story':lastContribution.story?.trim() ? copy.saved : (state.language === 'nb' ? 'Ingen lagt til' : 'None added'), 'photos-label':copy.photoLabel, 'photos':copy.photoCount(images.length)
     };
     Object.entries(contents).forEach(([key,value]) => { receipt.querySelector(`[data-receipt-${key}]`).textContent = value; });
     receipt.querySelector('[data-edit-contribution]').textContent = copy.editContribution;
@@ -257,7 +262,7 @@
       ? submissionState.progress?.total ? copy.uploading(submissionState.progress.done, submissionState.progress.total) : copy.savingContribution
       : storyStatus?.kind === 'error' ? errorMessage(storyStatus.error)
       : submissionState.pendingUpload ? copy.uploadIncomplete
-      : storyStatus?.kind === 'success' && lastContribution ? copy.contributionSaved(lastContribution.photos?.length || 0) : '';
+      : storyStatus?.kind === 'success' && lastContribution ? (lastContribution.story?.trim() ? copy.contributionSaved(lastContribution.photos?.length || 0) : (state.language === 'nb' ? 'Bildene dine er lagret. Tusen takk!' : 'Your photos are saved. Thank you!')) : '';
     renderReceipt();
     photoPreview.querySelectorAll('figcaption').forEach(caption => {
       caption.textContent = `${caption.dataset.filename}${caption.dataset.saved ? ` · ${copy.savedPhoto}` : ''}${caption.dataset.unavailable ? ` — ${copy.previewUnavailable}` : ''}`;
@@ -297,9 +302,10 @@
     submissionState.rsvpStatus = null;
     renderFeedback();
     try {
-      const saved = await submissions.saveRsvp({ eventId: config.id, name, accepted });
+      const saved = await submissions.saveRsvp({ eventId: config.id, name, email: emailInput.value.trim(), accepted });
       if (!saved || typeof saved.name !== 'string' || typeof saved.accepted !== 'boolean') throw new Error('Invalid save response');
-      lastReply = { name: saved.name, accepted: saved.accepted };
+      lastReply = { name: saved.name, email: saved.email || '', accepted: saved.accepted };
+      emailInput.value = saved.email || '';
       guestInput.value = saved.name;
       submissionState.rsvpStatus = { kind: 'success' };
       render();
@@ -384,6 +390,7 @@
     submissionState.contributionStatus = null;
     renderFeedback();
   });
+  emailInput.addEventListener('input', () => { submissionState.rsvpStatus = null; renderFeedback(); });
   guestInput.addEventListener('input', () => {
     submissionState.rsvpStatus = null;
     // An earlier saved reply remains authoritative until the new name is sent.
@@ -395,8 +402,8 @@
     const files = validatePhotos();
     if (!files) { photoInput.reportValidity(); return; }
     const story = storyInput.value.trim();
-    if (!story) {
-      storyInput.setCustomValidity(submissionCopy[state.language].emptyStory);
+    if (!story && (!submissions?.allowsPhotoOnly || (!files.length && !lastContribution?.photos?.length))) {
+      storyInput.setCustomValidity(submissions?.allowsPhotoOnly ? (state.language === 'nb' ? 'Legg til en historie eller et bilde, eller fortsett til albumet.' : 'Add a story or a photo, or continue to the album.') : submissionCopy[state.language].emptyStory);
       storyInput.reportValidity();
       return;
     }
@@ -434,7 +441,8 @@
     try {
       const guest = await submissions.restoreGuest(config.id);
       if (guest && typeof guest.name === 'string' && typeof guest.accepted === 'boolean') {
-        lastReply = { name: guest.name, accepted: guest.accepted };
+        lastReply = { name: guest.name, email: guest.email || '', accepted: guest.accepted };
+        emailInput.value = guest.email || '';
         guestInput.value = guest.name;
         submissionState.pendingUpload = guest.pendingUpload === true;
         if (guest.contributedAt || guest.story) {

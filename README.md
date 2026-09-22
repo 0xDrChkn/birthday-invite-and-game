@@ -1,6 +1,6 @@
 # Birthday invite and game
 
-A reusable Gatsby birthday website: a cinematic invitation and a playable host-controlled TV party game. Plain HTML, CSS and JavaScript, served directly by GitHub Pages. No build step. A pinned Supabase browser client handles private submissions.
+A reusable Gatsby birthday website: a cinematic invitation and a playable host-controlled TV party game. Plain HTML, CSS and JavaScript, served directly by GitHub Pages. No build step. A small Node.js service can store private replies and photos on an always-on Mac mini; no cloud database account is required.
 
 **[Open the invitation](https://0xdrchkn.github.io/saras-30th/)** · **[Play the game](https://0xdrchkn.github.io/saras-30th/game/)**
 
@@ -14,13 +14,11 @@ Blomstervegen 37B, 2005 Rælingen, Norway
 
 The invitation has English and Norwegian Bokmål, a full-castle opening that fits the complete photograph on every screen, a scroll-driven approach through its open doorway, and one Sara greeting. Four separate chapters follow: time/location, name and RSVP, evidence after replying, and the photo album. Dress code and food/drinks open in focused dialogs. The programme is a surprise and is not published. The drinks copy references Norway’s historical spirits ban; see [the source note](docs/COPY-SOURCES.md). Mobile layouts and reduced-motion preferences are supported. Each chapter fades and rises into view with scrolling. The nine selected album photographs appear across three pages. Guests can skip the entrance.
 
-**RSVP, story/photo storage and a private organiser dashboard are implemented and tested against local Supabase. The live project is not connected yet.** Until `submissions.url` and `submissions.publishableKey` are configured, the forms clearly show that submissions are unavailable and do not report a successful save. Connect the account using [the setup guide](docs/SUBMISSIONS.md). The [organiser dashboard](https://0xdrchkn.github.io/saras-30th/organiser/) shows replies, attendance, stories and photos, with CSV export and deletion. The [TV game](https://0xdrchkn.github.io/saras-30th/game/) now has a playable base: 2–6 teams, 22 ready clues, two selected Sara reactions, a timer, plus/minus scoring, undo and local saving. Eight personal/mashup slots still need content. See [game usage](game/README.md), the [detailed specification and reference comparison](docs/GAME-SPEC.md), and [all 30 proposed clue briefs](docs/GAME-CATEGORIES.md).
+**The custom RSVP, story/photo form and private organiser work with the new Mac-hosted service.** The local browser flow and storage tests pass; deployment to the actual Mac mini and a stable public HTTPS connection are still pending. Public GitHub Pages submissions remain disabled until that connection is verified. The website does not embed Tally.
 
-The host is considering a simpler Tally form or direct Discord collection instead of connecting Supabase. The proposed bilingual form fields and setup are in [the guest form draft](docs/GUEST-FORM-DRAFT.md); no alternative service is connected yet.
+The [organiser dashboard](https://0xdrchkn.github.io/saras-30th/organiser/) shows attendance, optional emails, stories and photo downloads, with search, filters and CSV export. See [Mac mini installation and backups](docs/MAC-MINI.md), [current verification](docs/INVITATION-READINESS.md), and [the local demo](docs/LOCAL-TEST.md).
 
-A real local RSVP/photo test is also prepared on this Mac: [test invitation](http://127.0.0.1:49175/#party-rsvp), [organiser dashboard](http://127.0.0.1:49175/organiser/), and [local test instructions](docs/LOCAL-TEST.md). These localhost links are for testing only; they do not make the public guest form live.
-
-The local guest book now includes ten labelled demo guests with ten stories and twenty verified photo uploads. See [the invitation readiness check and simplest launch option](docs/INVITATION-READINESS.md). The proposed hosted-form route has not been connected yet.
+The [TV game](https://0xdrchkn.github.io/saras-30th/game/) supports 2–6 teams, six chosen categories from a bank of ten, 42 ready clues, the two selected Sara reactions, a configurable timer, plus/minus scoring, corrections, undo, private pack import/export and local saving. The recommended board has 30 ready clues. Eight personal/mashup slots still need genuine material. See [game usage](game/README.md), [the specification and reference comparison](docs/GAME-SPEC.md), and [category briefs](docs/GAME-CATEGORIES.md).
 
 ## Use it for another person
 
@@ -30,7 +28,7 @@ The local guest book now includes ten labelled demo guests with ten stories and 
 4. Edit `hero` and `copy` for different party wording/themes. `{name}`, `{fullName}` and `{age}` are replaced automatically. Text is inserted as text, not HTML. `hero.headline` supports individual lines and emphasis.
 5. Optionally choose `appearance.direction`: `gala` (black and gold), `speakeasy` (emerald), or `champagne` (light). Change `defaultLanguage` to `en` or `nb`.
 6. Configure background music below. Enable GitHub Pages from **main / root** in the new repository’s Settings → Pages.
-7. Add the new event ID to `birthday_events` in Supabase, grant an organiser access to that event, and configure the public connection settings. Each event keeps its own submissions.
+7. Install a separate local service for the new event using the setup options in [MAC-MINI.md](docs/MAC-MINI.md), with its own data directory, event ID and port. Configure a verified HTTPS endpoint in `submissions`. Do not reuse another event’s guest database.
 
 The built-in mansion entrance and Gatsby copy are themed assets. For a completely different theme, update `cinema.css`, `cinema.js`, the mansion image and the translated hero/copy alongside the person settings. All web paths are relative so project URLs work.
 
@@ -57,6 +55,7 @@ node --check music.js
 node --check cinema.js
 node --check story.js
 node --check submissions.js
+node --check local-submissions.js
 node --check organiser/organiser.js
 ```
 
@@ -67,10 +66,12 @@ node --check organiser/organiser.js
 - `cinema.js`, `cinema.css`: full-castle camera approach and Sara greeting.
 - `story.js`, `story.css`: scroll-driven chapters and detail dialogs.
 - `music.js`: optional background audio and discreet controls.
-- `submissions.js`, `submissions.css`: private storage adapter and form feedback.
+- `local-submissions.js`, `submissions.css`: Mac-service adapter and custom form feedback.
+- `local-server/`: dependency-free Node 24/SQLite service, Mac installer and backup/restore tools.
+- `submissions.js`: retained legacy Supabase adapter; not used by the Mac service.
 - `organiser/`: authenticated reply and memory dashboard.
-- `backend/schema.sql`: database tables, access policies and private photo bucket.
-- `tests/`, `supabase/`: isolated local Supabase verification; see the submission guide.
+- `tests/`: local service, installer/recovery and game checks.
+- `backend/`, `supabase/`: preserved legacy local-demo backend; not needed for the new Mac installation.
 - `assets/`: optimized public website images; Sara’s originals are not altered.
 - `game/`: playable TV game, bilingual starter question pack and Sara reaction stickers.
 - `docs/`: game plan, submission setup, generated-asset notes.

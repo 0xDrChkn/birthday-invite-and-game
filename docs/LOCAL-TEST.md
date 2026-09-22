@@ -1,4 +1,27 @@
-# Try the invitation and uploads on this Mac
+# Try the custom invitation with Mac storage
+
+The new standalone Node service is running for this development session:
+
+- [Custom invitation](http://127.0.0.1:49200/#party-rsvp)
+- [Private organiser](http://127.0.0.1:49200/organiser/)
+
+The organiser contains ten clearly labelled demo guests and the browser verification guest. These are fictional test records with synthetic pictures, not actual invitees.
+
+Private QA login and data location: `tmp/local-node-qa.json` in this checkout. No credentials or submissions are committed to Git. This development instance stores data in a private temporary directory outside the repo; use the installer’s durable Application Support directory for the actual Mini.
+
+To restart this prepared development instance from this checkout:
+
+```sh
+node tmp/start-node-qa.mjs
+```
+
+Try a name, optional email, either RSVP answer, then an optional story and up to three pictures. A success receipt appears only after the service confirms the save. Reload to restore the saved reply. In the organiser, expand a guest to read their story and download their photos; search, filter and CSV export are available.
+
+These links work only on this Mac. They are not public invitation links. The Mini installer and external launch steps are in [MAC-MINI.md](MAC-MINI.md).
+
+---
+
+# Previous Docker demo (preserved)
 
 The local preview saves real replies, stories and photos. It is separate from the public GitHub Pages website, which still needs a hosted submission service before guests can send anything.
 

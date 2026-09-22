@@ -150,6 +150,7 @@
     summary.append(identity, badge);
 
     const content = node('div', 'guest-content');
+    if (row.email) content.append(node('p', 'guest-meta', `Email: ${row.email}`));
     content.append(node('p', 'eyebrow', 'Their story'));
     content.append(node('p', row.story?.trim() ? 'guest-story' : 'empty-story', row.story?.trim() ? row.story : 'No story submitted yet.'));
     if (row.pendingUpload) content.append(node('p', 'photo-error', 'This guest’s photo upload hasn’t finished. Their reply and story are saved; they can return to the invitation to retry their photos.'));
@@ -334,8 +335,8 @@
   ui.export.addEventListener('click', () => {
     if (!session || !hasLoaded || !rows.length) return;
     const records = [
-      ['Name', 'Reply', 'Reply updated', 'Story', 'Memories updated', 'Photo count'],
-      ...rows.map((row) => [row.name, row.accepted ? 'Joining' : 'Not attending', row.updatedAt, row.story, row.contributedAt, photosFor(row).length]),
+      ['Name', 'Email', 'Reply', 'Reply updated', 'Story', 'Memories updated', 'Photo count'],
+      ...rows.map((row) => [row.name, row.email || '', row.accepted ? 'Joining' : 'Not attending', row.updatedAt, row.story, row.contributedAt, photosFor(row).length]),
     ];
     const csv = '\uFEFF' + records.map((record) => record.map(csvCell).join(',')).join('\r\n');
     const eventSlug = String(config.id || 'birthday').replace(/[^a-z0-9_-]/gi, '-').slice(0, 80);
